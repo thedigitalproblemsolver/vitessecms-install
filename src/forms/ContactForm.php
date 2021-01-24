@@ -3,39 +3,27 @@
 namespace VitesseCms\Install\Forms;
 
 use VitesseCms\Form\AbstractForm;
+use VitesseCms\Form\Models\Attributes;
 
 class ContactForm extends AbstractForm
 {
 
     public function initialize()
     {
-        $this->_(
-            'text',
+        $this->addText(
             'Website name',
             'WEBSITE_DEFAULT_NAME',
-            [
-                'required' => 'required',
-                'value'    => $this->setting->get('WEBSITE_DEFAULT_NAME'),
-                'readonly' => $this->setting->has('WEBSITE_DEFAULT_NAME'),
-            ]
-        );
-
-        $this->_(
-            'email',
+            (new Attributes())
+                ->setRequired()
+                ->setReadonly($this->setting->has('WEBSITE_DEFAULT_NAME'))
+                ->setDefaultValue($this->setting->get('WEBSITE_DEFAULT_NAME'))
+        )->addEmail(
             'Website email',
             'WEBSITE_CONTACT_EMAIL',
-            [
-                'required' => 'required',
-                'value'    => $this->setting->get('WEBSITE_CONTACT_EMAIL'),
-                'readonly' => $this->setting->has('WEBSITE_CONTACT_EMAIL'),
-            ]
-        );
-
-
-        $this->_(
-            'submit',
-            'create',
-            'create'
-        );
+            (new Attributes())
+                ->setReadonly($this->setting->has('WEBSITE_CONTACT_EMAIL'))
+                ->setRequired()
+                ->setDefaultValue($this->setting->get('WEBSITE_CONTACT_EMAIL'))
+        )->addSubmitButton('create', 'create');
     }
 }
