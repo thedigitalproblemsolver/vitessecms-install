@@ -1,34 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace VitesseCms\Install\Forms;
 
 use VitesseCms\Form\AbstractForm;
+use VitesseCms\Form\Models\Attributes;
 
-/**
- * Class newProperty
- */
 class newPropertyForm extends AbstractForm
 {
 
     public function initialize()
     {
-        $this->_(
-            'email',
-            '%CORE_EMAIL%',
-            'email',
-            ['required' => 'required']
-        );
-        $this->_(
-            'password',
-            '%USER_PASSWORD%',
-            'password',
-            ['required' => 'required']
-        );
-
-        $this->_(
-            'submit',
-            'create new property',
-            'create'
-        );
+        $this->addEmail('%CORE_EMAIL%', 'email', (new Attributes())->setRequired())
+            ->addPassword('%USER_PASSWORD%', 'password', (new Attributes())->setRequired())
+            ->addSubmitButton('create new property', 'create')
+        ;
     }
 }
