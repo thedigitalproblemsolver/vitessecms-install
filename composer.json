@@ -14,10 +14,10 @@
   ],
   "autoload": {
     "psr-4": {
-      "VitesseCms\\Form\\": "src/"
+      "VitesseCms\\Install\\": "src/"
     }
   },
   "require": {
-
+    "vitessecms/vitessecms": "~0.0.35"
   }
 }
