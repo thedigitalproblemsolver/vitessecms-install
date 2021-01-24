@@ -6,19 +6,24 @@ use VitesseCms\Block\Models\BlockAffiliateInitialize;
 use VitesseCms\Block\Models\BlockAffiliateOrderOverview;
 use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Core\Models\Datagroup;
+use VitesseCms\Install\Repositories\AdminRepositoriesInterface;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Datafield\Models\FieldModel;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\AffiliateForm;
 use VitesseCms\User\Models\User;
 
-class AffiliateController extends AbstractCreatorController
+class AffiliateController extends AbstractCreatorController implements AdminRepositoriesInterface
 {
     public function createAction(): void
     {
         if (empty($this->setting->get('SHOP_DATAGROUP_AFFILIATE'))) :
             $this->view->setVar('content',
-                (new AffiliateForm())->renderForm('admin/install/affiliate/parseCreateForm'));
+                (new AffiliateForm())
+                    ->setRepositories($this->repositories)
+                    ->buildForm()
+                    ->renderForm('admin/install/affiliate/parseCreateForm')
+            );
             $this->prepareView();
         else :
             parent::redirect('admin/install/affiliate/doCreate');

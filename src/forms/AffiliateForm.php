@@ -4,27 +4,31 @@ namespace VitesseCms\Install\Forms;
 
 use VitesseCms\Core\Models\Datagroup;
 use VitesseCms\Form\AbstractForm;
+use VitesseCms\Form\AbstractFormWithRepository;
+use VitesseCms\Form\Helpers\ElementHelper;
+use VitesseCms\Form\Interfaces\FormWithRepositoryInterface;
+use VitesseCms\Form\Models\Attributes;
+use VitesseCms\Install\Repositories\AdminRepositoryCollectionInterface;
 
-class AffiliateForm extends AbstractForm
+class AffiliateForm extends AbstractFormWithRepository
 {
+    /**
+     * @var AdminRepositoryCollectionInterface
+     */
+    protected $repositories;
 
-    public function initialize()
+    public function buildForm(): FormWithRepositoryInterface
     {
-        $this->_(
-            'select',
+        $this->addDropdown(
             'Affiliate property datagroup',
             'SHOP_DATAGROUP_AFFILIATE',
-            [
-                'required' => 'required',
-                'value' => $this->setting->get('SHOP_DATAGROUP_AFFILIATE'),
-                'options' => Datagroup::class
-            ]
-        );
+            (new Attributes())->setRequired()
+                ->setOptions(ElementHelper::modelIteratorToOptions($this->repositories->datagroup->findAll()))
+                ->setDefaultValue($this->setting->get('SHOP_DATAGROUP_AFFILIATE')
+            ))
+            ->addSubmitButton('create', 'create')
+        ;
 
-        $this->_(
-            'submit',
-            'create',
-            'create'
-        );
+        return $this;
     }
 }

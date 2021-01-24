@@ -10,9 +10,6 @@ use VitesseCms\User\Factories\UserFactory;
 
 class IndexController extends AbstractCreatorController
 {
-    /**
-     * @throws \Phalcon\Mvc\Collection\Exception
-     */
     public function indexAction(): void
     {
         $_REQUEST['embedded'] = 1;
@@ -24,9 +21,6 @@ class IndexController extends AbstractCreatorController
         $this->prepareView();
     }
 
-    /**
-     * @throws \Phalcon\Mvc\Collection\Exception
-     */
     public function createPropertyAction(): void
     {
         $form = new newPropertyForm();
