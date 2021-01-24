@@ -43,7 +43,7 @@ class ContactController extends AbstractCreatorController
 
             $this->redirect('admin/install/contact/doCreate');
         else :
-            $this->flash->error('Error in form');
+            $this->flash->setError('Error in form');
             $this->redirect('admin/install/sitecreator/index');
         endif;
     }
@@ -55,7 +55,7 @@ class ContactController extends AbstractCreatorController
         $this->createContactBlock($datagroup, $page);
         $this->createContactSystemEmails();
 
-        $this->flash->success('Contact items created');
+        $this->flash->setSucces('Contact items created');
 
         $this->redirect('admin/install/sitecreator/index');
     }

@@ -42,7 +42,7 @@ class SeotoolsController extends AbstractCreatorController
 
         $this->createSettings($settings);
 
-        $this->flash->success('Seotools created');
+        $this->flash->setSucces('Seotools created');
 
         $this->redirect();
     }

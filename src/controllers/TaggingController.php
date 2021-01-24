@@ -46,7 +46,7 @@ class TaggingController extends AbstractCreatorController
             (string)$taggingDatagroups['child']->getId()
         );
 
-        $this->flash->success('Tagging system created');
+        $this->flash->setSucces('Tagging system created');
 
         $this->redirect('admin/install/sitecreator/index');
 

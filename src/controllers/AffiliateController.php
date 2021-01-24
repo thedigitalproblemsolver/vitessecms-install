@@ -44,7 +44,7 @@ class AffiliateController extends AbstractCreatorController implements AdminRepo
             endif;
             parent::redirect('admin/install/affiliate/doCreate');
         else :
-            $this->flash->error('Error in form');
+            $this->flash->setError('Error in form');
             parent::redirect('admin/install/sitecreator/index');
         endif;
     }
@@ -54,7 +54,7 @@ class AffiliateController extends AbstractCreatorController implements AdminRepo
         $datagroup = $this->createContent();
         $this->createAffiliateBlocks($datagroup);
 
-        $this->flash->success('Affiliate is activated');
+        $this->flash->setSucces('Affiliate is activated');
         parent::redirect('admin/install/sitecreator/index');
     }
 

@@ -65,7 +65,7 @@ class LogoController extends AbstractCreatorController
 
         $this->createBlocks($blocks, 'name.'.$this->configuration->getLanguageShort());
 
-        $this->flash->success('Logo created');
+        $this->flash->setSucces('Logo created');
 
         $this->redirect();
     }

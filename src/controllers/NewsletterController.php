@@ -58,7 +58,7 @@ class NewsletterController extends AbstractCreatorController
 
             parent::redirect('admin/install/newsletter/doCreate');
         else :
-            $this->flash->error('Error in form');
+            $this->flash->setError('Error in form');
             parent::redirect('admin/install/sitecreator/index');
         endif;
     }
@@ -75,7 +75,7 @@ class NewsletterController extends AbstractCreatorController
         $datagroup = $this->createNewsletterForm();
         $this->createNewsletterBlock($datagroup);
 
-        $this->flash->success('Newsletter items created');
+        $this->flash->setSucces('Newsletter items created');
         parent::redirect('admin/install/sitecreator/index');
     }
 

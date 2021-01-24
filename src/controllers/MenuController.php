@@ -40,7 +40,7 @@ class MenuController extends AbstractCreatorController implements AdminRepositor
             'name.'.$this->configuration->getLanguageShort()
         );
 
-        $this->flash->success('Menu created');
+        $this->flash->setSucces('Menu created');
 
         $this->redirect('admin/install/sitecreator/index');
 

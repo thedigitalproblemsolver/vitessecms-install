@@ -86,7 +86,7 @@ class ShopController extends AbstractCreatorController
 
         $this->createShopBlocks();
 
-        $this->flash->success('Webshop created');
+        $this->flash->setSucces('Webshop created');
         parent::redirect();
     }
 

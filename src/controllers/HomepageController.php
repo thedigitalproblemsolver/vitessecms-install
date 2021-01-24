@@ -73,7 +73,7 @@ class HomepageController extends AbstractCreatorController
             'name.' . $this->configuration->getLanguageShort()
         );
 
-        $this->flash->success('Hompage created');
+        $this->flash->setSucces('Hompage created');
 
         $this->redirect();
     }

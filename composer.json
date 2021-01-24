@@ -18,6 +18,10 @@
     }
   },
   "require": {
-
+    "vitessecms/form": "~0.0.1",
+    "vitessecms/communication": "~0.0.7",
+    "vitessecms/content": "~0.0.6",
+    "vitessecms/block": "~0.0.5",
+    "vitessecms/datafield": "~0.0.2"
   }
 }
