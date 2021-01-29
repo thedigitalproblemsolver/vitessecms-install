@@ -19,6 +19,7 @@
   },
   "require": {
     "vitessecms/vitessecms": "~0.0.38",
-    "vitessecms/language": "~0.0.1"
+    "vitessecms/language": "~0.0.1",
+    "vitessecms/setting": "~0.0.1"
   }
 }
