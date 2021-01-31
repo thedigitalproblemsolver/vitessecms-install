@@ -3,12 +3,16 @@
 namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Core\Factories\ObjectFactory;
+use VitesseCms\Database\Models\FindValue;
+use VitesseCms\Database\Models\FindValueIterator;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\newPropertyForm;
+use VitesseCms\Install\Repositories\RepositoriesInterface;
 use VitesseCms\Language\Factories\LanguageFactory;
+use VitesseCms\User\Enums\UserRoleEnum;
 use VitesseCms\User\Factories\UserFactory;
 
-class IndexController extends AbstractCreatorController
+class IndexController extends AbstractCreatorController implements RepositoriesInterface
 {
     public function indexAction(): void
     {
@@ -35,18 +39,18 @@ class IndexController extends AbstractCreatorController
                 $this->url->getBaseUri(),
                 'flag-icon flag-icon-'.$this->configuration->getLanguageShort(),
                 true
-            );
-            $language->save();
+            )->save();
 
             $this->createBasicPermissionRoles();
 
             $user = UserFactory::create(
                 $post['email'],
                 $post['password'],
-                'superadmin',
+                $this->repositories->permissionRole->findFirst(new FindValueIterator(
+                    [new FindValue('calling_name',UserRoleEnum::SUPER_ADMIN)]
+                ))->getId(),
                 true
-            );
-            $user->save();
+            )->save();
 
             $this->response->redirect($this->url->getBaseUri().'user/loginform');
         else:
