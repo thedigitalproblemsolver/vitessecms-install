@@ -9,6 +9,8 @@ use VitesseCms\Datafield\Repositories\DatafieldRepository;
 use VitesseCms\Core\Repositories\DatagroupRepository;
 use VitesseCms\Install\Repositories\AdminRepositoryCollection;
 use Phalcon\DiInterface;
+use VitesseCms\Install\Repositories\RepositoryCollection;
+use VitesseCms\User\Repositories\PermissionRoleRepository;
 
 class Module extends AbstractModule
 {
@@ -21,6 +23,10 @@ class Module extends AbstractModule
                 new ItemRepository(),
                 new DatagroupRepository(),
                 new DatafieldRepository()
+            ));
+        else :
+            $di->setShared('repositories', new RepositoryCollection(
+                new PermissionRoleRepository()
             ));
         endif;
     }
