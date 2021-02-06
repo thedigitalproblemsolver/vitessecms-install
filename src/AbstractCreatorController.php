@@ -10,7 +10,7 @@ use VitesseCms\Content\Factories\ItemFactory;
 use VitesseCms\Core\AbstractController;
 use VitesseCms\Block\Models\Block;
 use VitesseCms\Content\Models\Item;
-use VitesseCms\Core\Factories\DatagroupFactory;
+use VitesseCms\Datagroup\Factories\DatagroupFactory;
 use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Database\Models\FindValue;
