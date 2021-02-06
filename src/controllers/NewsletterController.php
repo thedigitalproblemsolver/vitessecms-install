@@ -10,7 +10,7 @@ use VitesseCms\Communication\Factories\NewsletterTemplateFactory;
 use VitesseCms\Communication\Models\Newsletter;
 use VitesseCms\Communication\Models\NewsletterList;
 use VitesseCms\Communication\Models\NewsletterTemplate;
-use VitesseCms\Core\Models\Datagroup;
+use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Datafield\Models\FieldText;
 use VitesseCms\Install\AbstractCreatorController;

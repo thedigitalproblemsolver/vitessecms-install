@@ -10,7 +10,7 @@ use VitesseCms\Block\Models\BlockShopPaymentResult;
 use VitesseCms\Block\Models\BlockShopUserOrders;
 use VitesseCms\Block\Models\BlockUserChangePassword;
 use VitesseCms\Block\Models\BlockUserLogin;
-use VitesseCms\Core\Models\Datagroup;
+use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Core\Utils\DirectoryUtil;
 use VitesseCms\Install\AbstractCreatorController;

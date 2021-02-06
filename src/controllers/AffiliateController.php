@@ -5,7 +5,7 @@ namespace VitesseCms\Install\Controllers;
 use VitesseCms\Block\Models\BlockAffiliateInitialize;
 use VitesseCms\Block\Models\BlockAffiliateOrderOverview;
 use VitesseCms\Datafield\Models\Datafield;
-use VitesseCms\Core\Models\Datagroup;
+use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Install\Repositories\AdminRepositoriesInterface;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Datafield\Models\FieldModel;

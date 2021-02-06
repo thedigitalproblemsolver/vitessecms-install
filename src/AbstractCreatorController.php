@@ -12,7 +12,7 @@ use VitesseCms\Block\Models\Block;
 use VitesseCms\Content\Models\Item;
 use VitesseCms\Core\Factories\DatagroupFactory;
 use VitesseCms\Datafield\Models\Datafield;
-use VitesseCms\Core\Models\Datagroup;
+use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Database\Models\FindValue;
 use VitesseCms\Database\Models\FindValueIterator;
 use VitesseCms\Install\Interfaces\AdminRepositoriesInterface;

@@ -4,7 +4,7 @@ namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Block\Models\BlockFilter;
 use VitesseCms\Block\Models\BlockFilterResult;
-use VitesseCms\Core\Models\Datagroup;
+use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Install\AbstractCreatorController;
 
 class FilterController extends AbstractCreatorController
