@@ -187,7 +187,7 @@ class NewsletterController extends AbstractCreatorController
         return $this->createDatagroup(
             'Inschrijven nieuwsbrief',
             'name.' . $this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/core',
+            'template/core/Views/blocks/MainContent/core',
             'form',
             $fieldIds
         );
@@ -201,7 +201,7 @@ class NewsletterController extends AbstractCreatorController
         $blocks = [
             'Formulier - inschrijven nieuwsbrief' => [
                 'block'         => BlockFormBuilder::class,
-                'template'      => 'template/core/views/blocks/FormBuilder/main_content',
+                'template'      => 'template/core/Views/blocks/FormBuilder/main_content',
                 'position'      => 'belowMaincontent',
                 'datagroup'     => 'all',
                 'blockSettings' => [
@@ -223,7 +223,7 @@ class NewsletterController extends AbstractCreatorController
             ],
             'Mijn nieuwsbrieven' => [
                 'block'     => BlockNewsletterSubscriptions::class,
-                'template'  => 'template/core/views/blocks/NewsletterSubscriptions/core',
+                'template'  => 'template/core/Views/blocks/NewsletterSubscriptions/core',
                 'position'  => 'myaccount',
                 'datagroup' => [],
             ]

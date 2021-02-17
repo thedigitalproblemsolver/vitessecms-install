@@ -51,13 +51,13 @@ class LogoController extends AbstractCreatorController
         $blocks = [
             'Logo core' => [
                 'block'     => BlockLogo::class,
-                'template'  => 'template/core/views/blocks/Logo/core',
+                'template'  => 'template/core/Views/blocks/Logo/core',
                 'position'  => 'logo',
                 'datagroup' => 'all',
             ],
             'Logo mobile'  => [
                 'block'     => BlockLogo::class,
-                'template'  => 'template/core/views/blocks/Logo/mobile',
+                'template'  => 'template/core/Views/blocks/Logo/mobile',
                 'position'  => 'logo',
                 'datagroup' => 'all',
             ],

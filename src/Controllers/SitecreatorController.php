@@ -10,7 +10,7 @@ class SitecreatorController extends AbstractCreatorController
     {
         $this->view->setVar('content', $this->view->renderTemplate(
             'menu',
-            $this->configuration->getVendorNameDir().'install/src/resources/views/admin/'
+            $this->configuration->getVendorNameDir().'install/src/Resources/views/admin/'
         ));
 
         $this->prepareView();
