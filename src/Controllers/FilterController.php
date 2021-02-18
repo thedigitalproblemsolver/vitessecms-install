@@ -35,13 +35,13 @@ class FilterController extends AbstractCreatorController
          */
         $blocks = [
             'Filter - resultaten' => [
-                'block'         => BlockFilterResult::class,
-                'template'      => '../../../../../Template/core/Views/blocks/FilterResult/core',
+                'block' => BlockFilterResult::class,
+                'template' => '../../../../../Template/core/Views/blocks/FilterResult/core',
                 'blockSettings' => [
                     'class' => 'container-filter-result',
                 ],
-                'position'      => 'maincontent',
-                'datagroup'     => 'page:' . $pages['pages']['Filter resultaten'],
+                'position' => 'maincontent',
+                'datagroup' => 'page:' . $pages['pages']['Filter resultaten'],
             ],
         ];
         $this->_createBlocks($blocks, 'name.' . $this->configuration->getLanguageShort());
@@ -50,14 +50,14 @@ class FilterController extends AbstractCreatorController
          */
         $blocks = [
             'Filter' => [
-                'block'         => BlockFilter::class,
-                'template'      => '../../../../../Template/core/Views/blocks/Filter/core',
+                'block' => BlockFilter::class,
+                'template' => '../../../../../Template/core/Views/blocks/Filter/core',
                 'blockSettings' => [
                     'class' => 'container-filter',
                     'targetPage' => $pages['pages']['Filter resultaten']
                 ],
-                'position'      => 'left',
-                'datagroup'     => 'all',
+                'position' => 'left',
+                'datagroup' => 'all',
             ],
         ];
         $this->_createBlocks($blocks, 'name.' . $this->configuration->getLanguageShort());

@@ -14,7 +14,7 @@ class AdminMenuListener
             $children = new AdminMenuNavBarChildren();
             $children->addChild('Site Creator', 'admin/install/sitecreator/index');
 
-            $adminMenu->addDropdown('System',$children);
+            $adminMenu->addDropdown('System', $children);
         endif;
     }
 }

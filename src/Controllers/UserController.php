@@ -19,61 +19,61 @@ class UserController extends AbstractCreatorController
     public function createPersonalInformation()
     {
         $fields = [
-            'Voornaam'      => [
-                'calling_name'      => 'firstName',
-                'type'              => 'text',
+            'Voornaam' => [
+                'calling_name' => 'firstName',
+                'type' => 'text',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
             'Tussenvoegsel' => [
-                'calling_name'      => 'middleName',
-                'type'              => 'text',
+                'calling_name' => 'middleName',
+                'type' => 'text',
                 'datafieldSettings' => ['inputType' => 'text']
             ],
-            'Achternaam'    => [
-                'calling_name'      => 'lastName',
-                'type'              => 'text',
+            'Achternaam' => [
+                'calling_name' => 'lastName',
+                'type' => 'text',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Straat'        => [
-                'calling_name'      => 'street',
-                'type'              => 'text',
+            'Straat' => [
+                'calling_name' => 'street',
+                'type' => 'text',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Huisnummer'    => [
-                'calling_name'      => 'houseNumber',
-                'type'              => 'text',
+            'Huisnummer' => [
+                'calling_name' => 'houseNumber',
+                'type' => 'text',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Postcode'      => [
-                'calling_name'      => 'zipCode',
-                'type'              => 'text',
+            'Postcode' => [
+                'calling_name' => 'zipCode',
+                'type' => 'text',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Woonplaats'    => [
-                'calling_name'      => 'city',
-                'type'              => 'text',
+            'Woonplaats' => [
+                'calling_name' => 'city',
+                'type' => 'text',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
             'Land' => [
-                'calling_name'      => 'country',
-                'type'              => 'FieldModel',
+                'calling_name' => 'country',
+                'type' => 'FieldModel',
                 'datafieldSettings' => ['model' => Country::class],
-                'required'          => true,
+                'required' => true,
             ],
-            'Telefoon'      => [
-                'calling_name'      => 'phoneNumber',
-                'type'              => 'text',
+            'Telefoon' => [
+                'calling_name' => 'phoneNumber',
+                'type' => 'text',
                 'datafieldSettings' => ['inputType' => 'tel'],
-                'required'          => true,
+                'required' => true,
             ],
         ];
-        $fieldIds = $this->createDatafields($fields,'calling_name');
+        $fieldIds = $this->createDatafields($fields, 'calling_name');
 
         $personalInformationGroup = $this->createDatagroup(
             'NAW',
@@ -83,8 +83,8 @@ class UserController extends AbstractCreatorController
             $fieldIds
         );
 
-        Setting::setFindValue('calling_name','USER_DATAGROUP_PERSONALINFORMATION');
-        if(Setting::count() === 0 ) :
+        Setting::setFindValue('calling_name', 'USER_DATAGROUP_PERSONALINFORMATION');
+        if (Setting::count() === 0) :
             SettingFactory::create(
                 'USER_DATAGROUP_PERSONALINFORMATION',
                 'SettingDatagroup',

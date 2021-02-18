@@ -28,7 +28,8 @@ class AdminRepositoryCollection implements AdminRepositoryCollectionInterface, B
         ItemRepository $itemRepository,
         DatagroupRepository $datagroupRepository,
         DatafieldRepository $datafieldRepository
-    ) {
+    )
+    {
         $this->item = $itemRepository;
         $this->datagroup = $datagroupRepository;
         $this->datafield = $datafieldRepository;

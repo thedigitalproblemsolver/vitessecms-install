@@ -19,8 +19,8 @@ class IndexController extends AbstractCreatorController implements RepositoriesI
         $_REQUEST['embedded'] = 1;
 
         $form = new newPropertyForm();
-        $this->view->setVar('content',$form->renderForm(
-            $this->url->getBaseUri().'install/index/createproperty/'
+        $this->view->setVar('content', $form->renderForm(
+            $this->url->getBaseUri() . 'install/index/createproperty/'
         ));
         $this->prepareView();
     }
@@ -37,7 +37,7 @@ class IndexController extends AbstractCreatorController implements RepositoriesI
                 $this->configuration->getLanguageLocale(),
                 $this->configuration->getLanguageShort(),
                 $this->url->getBaseUri(),
-                'flag-icon flag-icon-'.$this->configuration->getLanguageShort(),
+                'flag-icon flag-icon-' . $this->configuration->getLanguageShort(),
                 true
             )->save();
 
@@ -47,12 +47,12 @@ class IndexController extends AbstractCreatorController implements RepositoriesI
                 $post['email'],
                 $post['password'],
                 $this->repositories->permissionRole->findFirst(new FindValueIterator(
-                    [new FindValue('calling_name',UserRoleEnum::SUPER_ADMIN)]
+                    [new FindValue('calling_name', UserRoleEnum::SUPER_ADMIN)]
                 ))->getId(),
                 true
             )->save();
 
-            $this->response->redirect($this->url->getBaseUri().'user/loginform');
+            $this->response->redirect($this->url->getBaseUri() . 'user/loginform');
         else:
             $this->response->redirect($this->url->getBaseUri());
         endif;

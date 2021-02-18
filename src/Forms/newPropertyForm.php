@@ -12,7 +12,6 @@ class newPropertyForm extends AbstractForm
     {
         $this->addEmail('%CORE_EMAIL%', 'email', (new Attributes())->setRequired())
             ->addPassword('%USER_PASSWORD%', 'password', (new Attributes())->setRequired())
-            ->addSubmitButton('create new property', 'create')
-        ;
+            ->addSubmitButton('create new property', 'create');
     }
 }

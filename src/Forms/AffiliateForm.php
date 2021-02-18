@@ -25,9 +25,8 @@ class AffiliateForm extends AbstractFormWithRepository
             (new Attributes())->setRequired()
                 ->setOptions(ElementHelper::modelIteratorToOptions($this->repositories->datagroup->findAll()))
                 ->setDefaultValue($this->setting->get('SHOP_DATAGROUP_AFFILIATE')
-            ))
-            ->addSubmitButton('create', 'create')
-        ;
+                ))
+            ->addSubmitButton('create', 'create');
 
         return $this;
     }
