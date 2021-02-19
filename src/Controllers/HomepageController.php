@@ -10,26 +10,26 @@ class HomepageController extends AbstractCreatorController
     public function createAction()
     {
         $fields = [
-            'Item naam'   => [
-                'calling_name'      => 'name',
-                'type'              => 'FieldText',
+            'Item naam' => [
+                'calling_name' => 'name',
+                'type' => 'FieldText',
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
                 ],
-                'required'          => true,
+                'required' => true,
             ],
-            'Bodytext'    => [
-                'calling_name'      => 'bodytext',
-                'type'              => 'FieldTexteditor',
+            'Bodytext' => [
+                'calling_name' => 'bodytext',
+                'type' => 'FieldTexteditor',
                 'datafieldSettings' => [
                     'multilang' => true,
                 ],
             ],
             'Is Homepage' => [
                 'calling_name' => 'homepage',
-                'type'         => 'FieldCheckbox',
-                'required'     => true,
+                'type' => 'FieldCheckbox',
+                'required' => true,
             ],
         ];
         $fieldIds = $this->createDatafields($fields, 'calling_name');
@@ -37,7 +37,7 @@ class HomepageController extends AbstractCreatorController
         $itemGroup = $this->createDatagroup(
             'Homepage',
             'name.' . $this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/core',
+            'template/core/Views/blocks/MainContent/core',
             'content',
             $fieldIds,
             true
@@ -50,7 +50,7 @@ class HomepageController extends AbstractCreatorController
                         'value' => '1',
                     ],
                     'bodytext' => [
-                        'value'     => 'Dit is de Homepage',
+                        'value' => 'Dit is de Homepage',
                         'multilang' => true,
                     ],
                 ],
@@ -61,9 +61,9 @@ class HomepageController extends AbstractCreatorController
 
         $blocks = [
             'Bodytext' => [
-                'block'     => BlockMainContent::class,
-                'template'  => 'template/core/views/blocks/MainContent/core',
-                'position'  => 'maincontent',
+                'block' => BlockMainContent::class,
+                'template' => 'template/core/Views/blocks/MainContent/core',
+                'position' => 'maincontent',
                 'datagroup' => 'all',
             ],
         ];

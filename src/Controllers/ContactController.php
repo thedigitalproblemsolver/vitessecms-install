@@ -68,7 +68,7 @@ class ContactController extends AbstractCreatorController
             [
                 'Contact' => [],
             ],
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             $datagroup
         );
     }
@@ -77,33 +77,33 @@ class ContactController extends AbstractCreatorController
     {
         $fields = [
             'Uw naam' => [
-                'calling_name'      => 'fullName',
-                'type'              => 'FieldText',
+                'calling_name' => 'fullName',
+                'type' => 'FieldText',
                 'datafieldSettings' => [
                     'inputType' => 'text',
                 ],
-                'required'          => true,
+                'required' => true,
             ],
-            'E-mail'  => [
-                'calling_name'      => 'email',
-                'type'              => 'FieldText',
+            'E-mail' => [
+                'calling_name' => 'email',
+                'type' => 'FieldText',
                 'datafieldSettings' => [
                     'inputType' => 'email',
                 ],
-                'required'          => true,
+                'required' => true,
             ],
             'Bericht' => [
                 'calling_name' => 'message',
-                'type'         => 'FieldTextarea',
-                'required'     => true,
+                'type' => 'FieldTextarea',
+                'required' => true,
             ],
         ];
         $fieldIds = $this->createDatafields($fields, 'calling_name');
 
         return $this->createDatagroup(
             'Contact',
-            'name.'.$this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/core',
+            'name.' . $this->configuration->getLanguageShort(),
+            'template/core/Views/blocks/MainContent/core',
             'form',
             $fieldIds
         );
@@ -113,20 +113,20 @@ class ContactController extends AbstractCreatorController
     {
         $blocks = [
             'Formulier - contact' => [
-                'block'         => BlockFormBuilder::class,
-                'template'      => 'template/core/views/blocks/FormBuilder/main_content',
-                'position'      => 'maincontent',
-                'datagroup'     => 'page:'.$pages['ids'][0],
+                'block' => BlockFormBuilder::class,
+                'template' => 'template/core/Views/blocks/FormBuilder/main_content',
+                'position' => 'maincontent',
+                'datagroup' => 'page:' . $pages['ids'][0],
                 'blockSettings' => [
                     'pageThankyou' => [
-                        'value'     => '<p>Bedankt voor uw vraag. We nemen zo spoedig mogelijk contact met je op.</p>',
+                        'value' => '<p>Bedankt voor uw vraag. We nemen zo spoedig mogelijk contact met je op.</p>',
                         'multilang' => true,
                     ],
-                    'submitText'   => [
-                        'value'     => 'Verstuur het formulier',
+                    'submitText' => [
+                        'value' => 'Verstuur het formulier',
                         'multilang' => true,
                     ],
-                    'datagroup'    => [
+                    'datagroup' => [
                         'value' => (string)$datagroup->getId(),
                     ],
                 ],
@@ -134,31 +134,31 @@ class ContactController extends AbstractCreatorController
         ];
         $this->createBlocks(
             $blocks,
-            'name.'.$this->configuration->getLanguageShort()
+            'name.' . $this->configuration->getLanguageShort()
         );
     }
 
     protected function createContactSystemEmails(): void
     {
         $emails = [
-            'Ingezonden formulier op {{BASE_URI}}'    => [
-                'body'         => '<p>Een kopie van uw verzonden gegevens.<br></p><p>{{formData}}</p>',
+            'Ingezonden formulier op {{BASE_URI}}' => [
+                'body' => '<p>Een kopie van uw verzonden gegevens.<br></p><p>{{formData}}</p>',
                 'systemAction' => 'formindexsubmit',
                 'triggerState' => 'success',
-                'published'    => true,
+                'published' => true,
             ],
             'Ingezonden formulier vanaf {{BASE_URI}}' => [
-                'body'                 => '<p>Er is een formulier ingezonden.</p><p>{{formAdminData}}</p>',
-                'systemAction'         => 'formindexsubmit',
-                'triggerState'         => 'success',
-                'published'            => true,
+                'body' => '<p>Er is een formulier ingezonden.</p><p>{{formAdminData}}</p>',
+                'systemAction' => 'formindexsubmit',
+                'triggerState' => 'success',
+                'published' => true,
                 'alternativeRecipient' => $this->user->_('email'),
             ],
         ];
 
         $this->createSystemEmails(
             $emails,
-            'subject.'.$this->configuration->getLanguageShort()
+            'subject.' . $this->configuration->getLanguageShort()
         );
     }
 }

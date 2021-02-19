@@ -17,7 +17,8 @@ class RepositoryCollection implements RepositoryCollectionInterface, BaseReposit
 
     public function __construct(
         PermissionRoleRepository $permissionRoleRepository
-    ) {
+    )
+    {
         $this->permissionRole = $permissionRoleRepository;
     }
 }

@@ -26,17 +26,17 @@ class SeotoolsController extends AbstractCreatorController
 
         if (!$this->setting->has(CallingNameEnum::GOOGLE_ANALYTICS_TRACKINGID)) :
             $settings[CallingNameEnum::GOOGLE_ANALYTICS_TRACKINGID] = [
-                'type'  => TypeEnum::TEXT,
+                'type' => TypeEnum::TEXT,
                 'value' => $this->request->get('ga_tracking_id'),
-                'name'  => 'Google Analytics tracking ID',
+                'name' => 'Google Analytics tracking ID',
             ];
         endif;
 
         if (!$this->setting->has(CallingNameEnum::GOOGLE_SITE_VERIFICATION)) :
             $settings[CallingNameEnum::GOOGLE_SITE_VERIFICATION] = [
-                'type'  => TypeEnum::TEXT,
+                'type' => TypeEnum::TEXT,
                 'value' => $this->request->get('google_site_verification'),
-                'name'  => 'Google Site Verification',
+                'name' => 'Google Site Verification',
             ];
         endif;
 

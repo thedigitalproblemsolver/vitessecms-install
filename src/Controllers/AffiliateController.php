@@ -62,15 +62,15 @@ class AffiliateController extends AbstractCreatorController implements AdminRepo
     {
         $fields = [
             'Affiliate gebruiker' => [
-                'calling_name'      => 'affiliateUser',
-                'type'              => FieldModel::class,
+                'calling_name' => 'affiliateUser',
+                'type' => FieldModel::class,
                 'datafieldSettings' => [
-                    'inputType'    => 'text',
-                    'useSelect2'   => true,
+                    'inputType' => 'text',
+                    'useSelect2' => true,
                     'displayLimit' => 999,
-                    'model'        => User::class,
+                    'model' => User::class,
                 ],
-                'required'          => true,
+                'required' => true,
             ],
         ];
         $fieldIds = $this->createDatafields($fields, 'calling_name');
@@ -90,26 +90,26 @@ class AffiliateController extends AbstractCreatorController implements AdminRepo
     protected function createAffiliateBlocks(Datagroup $datagroup): void
     {
         $blocks = [
-            'Mijn wederverkopen'    => [
-                'block'     => BlockAffiliateOrderOverview::class,
-                'template'  => 'template/core/views/blocks/AffiliateOrderOverview/core',
-                'position'  => 'myaccount',
+            'Mijn wederverkopen' => [
+                'block' => BlockAffiliateOrderOverview::class,
+                'template' => 'template/core/Views/blocks/AffiliateOrderOverview/core',
+                'position' => 'myaccount',
                 'datagroup' => [],
             ],
             'Affiliate initializer' => [
-                'block'         => BlockAffiliateInitialize::class,
-                'template'      => 'template/core/views/blocks/AffiliateInitialize/core',
-                'position'      => 'footer',
-                'datagroup'     => [(string)$datagroup->getId()],
+                'block' => BlockAffiliateInitialize::class,
+                'template' => 'template/core/Views/blocks/AffiliateInitialize/core',
+                'position' => 'footer',
+                'datagroup' => [(string)$datagroup->getId()],
                 'blockSettings' => [
-                    'datagroups'     => ['value' => [(string)$datagroup->getId()]],
+                    'datagroups' => ['value' => [(string)$datagroup->getId()]],
                     'cookieLifetime' => ['value' => 30],
                 ],
             ],
         ];
         $this->createBlocks(
             $blocks,
-            'name.'.$this->configuration->getLanguageShort()
+            'name.' . $this->configuration->getLanguageShort()
         );
     }
 }

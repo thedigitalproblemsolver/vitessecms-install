@@ -24,20 +24,20 @@ class MenuController extends AbstractCreatorController implements AdminRepositor
     {
         $blocks = [
             'MainMenu' => [
-                'block'         => BlockItemlist::class,
-                'template'      => 'template/core/views/blocks/Itemlist/vertical_menu',
-                'position'      => 'menu',
-                'datagroup'     => 'all',
+                'block' => BlockItemlist::class,
+                'template' => 'template/core/Views/blocks/Itemlist/vertical_menu',
+                'position' => 'menu',
+                'datagroup' => 'all',
                 'blockSettings' => [
                     'listMode' => ['value' => 'handpicked'],
-                    'items'    => ['value' => $this->request->get('items')],
+                    'items' => ['value' => $this->request->get('items')],
                 ],
             ],
         ];
 
         $this->createBlocks(
             $blocks,
-            'name.'.$this->configuration->getLanguageShort()
+            'name.' . $this->configuration->getLanguageShort()
         );
 
         $this->flash->setSucces('Menu created');

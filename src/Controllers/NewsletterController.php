@@ -80,26 +80,6 @@ class NewsletterController extends AbstractCreatorController
     }
 
     /**
-     * createNewsletterTemplate
-     */
-    protected function createNewsletterTemplate(): void
-    {
-        /** @var Language $language */
-        foreach (Language::findAll() as $language) :
-            NewsletterTemplate::setFindPublished(false);
-            NewsletterList::setFindValue('language', (string)$language->getId());
-            if(NewsletterTemplate::count() === 0 ) :
-                NewsletterTemplateFactory::create(
-                    'Demo template - '.$language->_('short'),
-                    $language,
-                    '<p>Dit is een demo template</p><p>{UNSUBSCRIBE}Uitschrijven{/UNSUBSCRIBE}</p>',
-                    true
-                )->save();
-            endif;
-        endforeach;
-    }
-
-    /**
      * createNewsletterList
      */
     protected function createNewsletterList(): void
@@ -108,23 +88,43 @@ class NewsletterController extends AbstractCreatorController
         foreach (Language::findAll() as $language) :
             NewsletterList::setFindPublished(false);
             NewsletterList::setFindValue('language', (string)$language->getId());
-            if(NewsletterList::count() === 0) :
+            if (NewsletterList::count() === 0) :
                 NewsletterListFactory::create(
-                    'Demo lijst - '.$language->_('short'),
+                    'Demo lijst - ' . $language->_('short'),
                     $language,
                     true
                 )->save();
             endif;
         endforeach;
     }
-    
+
+    /**
+     * createNewsletterTemplate
+     */
+    protected function createNewsletterTemplate(): void
+    {
+        /** @var Language $language */
+        foreach (Language::findAll() as $language) :
+            NewsletterTemplate::setFindPublished(false);
+            NewsletterList::setFindValue('language', (string)$language->getId());
+            if (NewsletterTemplate::count() === 0) :
+                NewsletterTemplateFactory::create(
+                    'Demo template - ' . $language->_('short'),
+                    $language,
+                    '<p>Dit is een demo template</p><p>{UNSUBSCRIBE}Uitschrijven{/UNSUBSCRIBE}</p>',
+                    true
+                )->save();
+            endif;
+        endforeach;
+    }
+
     protected function createNewsletter(): void
     {
         /** @var Language $language */
         foreach (Language::findAll() as $language) :
             Newsletter::setFindPublished(false);
             Newsletter::setFindValue('language', (string)$language->getId());
-            if(Newsletter::count() === 0) :
+            if (Newsletter::count() === 0) :
                 NewsletterList::setFindPublished(false);
                 NewsletterList::setFindValue('language', (string)$language->getId());
                 /** @var NewsletterList $newsletterList */
@@ -136,11 +136,11 @@ class NewsletterController extends AbstractCreatorController
                 $newsletterTemplate = NewsletterTemplate::findFirst();
 
                 NewsletterFactory::create(
-                    'Demo nieuwsbrief - '.$language->_('short'),
+                    'Demo nieuwsbrief - ' . $language->_('short'),
                     $language,
                     $newsletterList,
                     $newsletterTemplate,
-                    'Demo nieuwsbrief - '.$language->_('short'),
+                    'Demo nieuwsbrief - ' . $language->_('short'),
                     '',
                     true
                 )->save();
@@ -163,23 +163,23 @@ class NewsletterController extends AbstractCreatorController
         endforeach;
 
         $fields = [
-            'E-mail'  => [
-                'calling_name'      => 'email',
-                'type'              => FieldText::class,
+            'E-mail' => [
+                'calling_name' => 'email',
+                'type' => FieldText::class,
                 'datafieldSettings' => [
                     'inputType' => 'email',
                 ],
-                'required'          => true,
+                'required' => true,
             ],
             'Nieuwsbrief lijst' => [
-                'calling_name'      => 'newsletterList',
-                'type'              => FieldText::class,
+                'calling_name' => 'newsletterList',
+                'type' => FieldText::class,
                 'datafieldSettings' => [
                     'inputType' => 'hidden',
                     'multilang' => true,
                     'defaultValue' => $lists
                 ],
-                'required'          => true,
+                'required' => true,
             ],
         ];
         $fieldIds = $this->createDatafields($fields, 'calling_name');
@@ -187,7 +187,7 @@ class NewsletterController extends AbstractCreatorController
         return $this->createDatagroup(
             'Inschrijven nieuwsbrief',
             'name.' . $this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/core',
+            'template/core/Views/blocks/MainContent/core',
             'form',
             $fieldIds
         );
@@ -200,31 +200,31 @@ class NewsletterController extends AbstractCreatorController
     {
         $blocks = [
             'Formulier - inschrijven nieuwsbrief' => [
-                'block'         => BlockFormBuilder::class,
-                'template'      => 'template/core/views/blocks/FormBuilder/main_content',
-                'position'      => 'belowMaincontent',
-                'datagroup'     => 'all',
+                'block' => BlockFormBuilder::class,
+                'template' => 'template/core/Views/blocks/FormBuilder/main_content',
+                'position' => 'belowMaincontent',
+                'datagroup' => 'all',
                 'blockSettings' => [
                     'pageThankyou' => [
-                        'value'     => '<p>Bedankt voor je inschrijving op onze nieuwsbrief.</p>',
+                        'value' => '<p>Bedankt voor je inschrijving op onze nieuwsbrief.</p>',
                         'multilang' => true,
                     ],
-                    'submitText'   => [
-                        'value'     => 'Schrijf mij in op de nieuwsbrief',
+                    'submitText' => [
+                        'value' => 'Schrijf mij in op de nieuwsbrief',
                         'multilang' => true,
                     ],
-                    'datagroup'    => [
+                    'datagroup' => [
                         'value' => (string)$datagroup->getId(),
                     ],
-                    'postUrl'   => [
+                    'postUrl' => [
                         'value' => 'communication/newsletterlist/addmember/',
                     ]
                 ],
             ],
             'Mijn nieuwsbrieven' => [
-                'block'     => BlockNewsletterSubscriptions::class,
-                'template'  => 'template/core/views/blocks/NewsletterSubscriptions/core',
-                'position'  => 'myaccount',
+                'block' => BlockNewsletterSubscriptions::class,
+                'template' => 'template/core/Views/blocks/NewsletterSubscriptions/core',
+                'position' => 'myaccount',
                 'datagroup' => [],
             ]
         ];

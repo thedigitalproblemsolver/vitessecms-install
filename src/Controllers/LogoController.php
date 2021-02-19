@@ -26,44 +26,44 @@ class LogoController extends AbstractCreatorController
     {
         $settings = [
             CallingNameEnum::LOGO_DEFAULT => [
-                'type'  => TypeEnum::IMAGE,
+                'type' => TypeEnum::IMAGE,
                 'value' => $this->request->get('image'),
-                'name'  => 'Logo core',
+                'name' => 'Logo core',
             ],
-            CallingNameEnum::LOGO_MOBILE  => [
-                'type'  => TypeEnum::IMAGE,
+            CallingNameEnum::LOGO_MOBILE => [
+                'type' => TypeEnum::IMAGE,
                 'value' => $this->request->get('image'),
-                'name'  => 'Logo mobile',
+                'name' => 'Logo mobile',
             ],
-            CallingNameEnum::LOGO_EMAIL   => [
-                'type'  => TypeEnum::IMAGE,
+            CallingNameEnum::LOGO_EMAIL => [
+                'type' => TypeEnum::IMAGE,
                 'value' => $this->request->get('image'),
-                'name'  => 'Logo e-mail',
+                'name' => 'Logo e-mail',
             ],
-            CallingNameEnum::FAVICON      => [
-                'type'  => TypeEnum::IMAGE,
+            CallingNameEnum::FAVICON => [
+                'type' => TypeEnum::IMAGE,
                 'value' => $this->request->get('image'),
-                'name'  => 'Logo favicon',
+                'name' => 'Logo favicon',
             ],
         ];
         $this->createSettings($settings);
 
         $blocks = [
             'Logo core' => [
-                'block'     => BlockLogo::class,
-                'template'  => 'template/core/views/blocks/Logo/core',
-                'position'  => 'logo',
+                'block' => BlockLogo::class,
+                'template' => 'template/core/Views/blocks/Logo/core',
+                'position' => 'logo',
                 'datagroup' => 'all',
             ],
-            'Logo mobile'  => [
-                'block'     => BlockLogo::class,
-                'template'  => 'template/core/views/blocks/Logo/mobile',
-                'position'  => 'logo',
+            'Logo mobile' => [
+                'block' => BlockLogo::class,
+                'template' => 'template/core/Views/blocks/Logo/mobile',
+                'position' => 'logo',
                 'datagroup' => 'all',
             ],
         ];
 
-        $this->createBlocks($blocks, 'name.'.$this->configuration->getLanguageShort());
+        $this->createBlocks($blocks, 'name.' . $this->configuration->getLanguageShort());
 
         $this->flash->setSucces('Logo created');
 

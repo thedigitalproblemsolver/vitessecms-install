@@ -42,7 +42,7 @@ abstract class AbstractCreatorController extends AbstractController implements A
     {
         if (!PermissionUtils::check(
             $this->user,
-            $this->router->getModulePrefix().$this->router->getModuleName(),
+            $this->router->getModulePrefix() . $this->router->getModuleName(),
             $this->router->getControllerName(),
             $this->router->getActionName()
         )) :
@@ -53,23 +53,227 @@ abstract class AbstractCreatorController extends AbstractController implements A
         endif;
     }
 
-    protected function createSettings(array $settings): void
+    public function createBasicPermissionRoles(): void
     {
-        foreach ($settings as $settingKey => $params) :
-            Setting::setFindValue('calling_name', $settingKey);
-            Setting::setFindPublished(false);
-            $settingItems = Setting::findAll();
-            if (\count($settingItems) === 0) :
-                $setting = SettingFactory::create(
-                    $settingKey,
-                    isset($params['type']) ? $params['type'] : 'SettingText',
-                    isset($params['value']) ? $params['value'] : '',
-                    isset($params['name']) ? $params['name'] : '',
-                    true
-                );
-                $setting->save();
+        $roles = [
+            'SuperAdmin' => [
+                'calling_name' => 'superadmin',
+                'adminAccess' => true,
+            ],
+            'Admin' => [
+                'calling_name' => 'admin',
+                'adminAccess' => true,
+            ],
+            'Geregistreerd' => [
+                'calling_name' => 'registered',
+            ],
+            'Gast' => [
+                'calling_name' => 'guest',
+            ],
+        ];
+
+        $this->createPermissionRoles($roles);
+    }
+
+    protected function createPermissionRoles(array $roles): void
+    {
+        foreach ($roles as $name => $params) :
+            PermissionRole::setFindValue('calling_name', $params['calling_name']);
+            PermissionRole::setFindPublished(false);
+            $permissionRoles = PermissionRole::findAll();
+            if (count($permissionRoles) === 0) :
+                PermissionRoleFactory::create(
+                    $name,
+                    $params['calling_name'],
+                    true,
+                    isset($params['adminAccess']) ? true : false,
+                    isset($params['parentId']) ? $params['parentId'] : null
+                )->save();
             endif;
         endforeach;
+    }
+
+    protected function createItems(
+        array $pages,
+        string $titleField,
+        Datagroup $datagroup,
+        string $parentId = null,
+        int $startOrder = 0
+    ): array
+    {
+        $return = [
+            'pages' => [],
+            'ids' => [],
+        ];
+        foreach ($pages as $title => $params) :
+            $item = $this->repositories->item->findFirst(
+                new FindValueIterator([
+                    new FindValue($titleField, $title),
+                    new FindValue('datagroup', (string)$datagroup->getId()),
+                ]),
+                false
+            );
+            if ($item === null) :
+                $fieldValues = [];
+                if (is_array($params)) :
+                    $fieldValues = $params;
+                endif;
+                $item = ItemFactory::create(
+                    $title,
+                    (string)$datagroup->getId(),
+                    $fieldValues,
+                    true,
+                    $parentId,
+                    $startOrder
+                );
+                $this->eventsManager->fire(Item::class . ':beforeModelSave', $item, $this);
+                $item->save();
+            endif;
+            $return['pages'][$title] = (string)$item->getId();
+            $return['ids'][] = (string)$item->getId();
+            $startOrder++;
+        endforeach;
+
+        return $return;
+    }
+
+    protected function createBlocks(
+        array $blocks,
+        string $titleField,
+        int $order = 10
+    ): array
+    {
+        $return = [
+            'blocks' => [],
+            'ids' => [],
+        ];
+        foreach ($blocks as $title => $params) :
+            Block::setFindValue($titleField, $title);
+            Block::setFindPublished(false);
+            $blocks = Block::findAll();
+            if (count($blocks) === 0) :
+                $blockSettings = [];
+                if (isset($params['blockSettings'])) :
+                    $blockSettings = $params['blockSettings'];
+                endif;
+
+                $block = BlockFactory::create(
+                    $title,
+                    $params['block'],
+                    $params['template'],
+                    $blockSettings,
+                    true,
+                    $order
+                );
+                $block->save();
+
+                if (isset($params['position']) && isset($params['datagroup'])) :
+                    BlockPositionFactory::create(
+                        ucfirst($params['position']) . ' - ' . $block->_('name'),
+                        (string)$block->getId(),
+                        $params['position'],
+                        $params['datagroup'],
+                        true,
+                        $order
+                    )->save();
+                endif;
+            else :
+                $block = $blocks[0];
+            endif;
+            $return['blocks'][$title] = (string)$block->getId();
+            $return['ids'][] = (string)$block->getId();
+            $order++;
+        endforeach;
+
+        return $return;
+    }
+
+    protected function createContentDatagroup(?array $extraFields = null): Datagroup
+    {
+        $fields = [
+            'Item naam' => [
+                'calling_name' => 'name',
+                'type' => 'FieldText',
+                'datafieldSettings' => [
+                    'inputType' => 'text',
+                    'multilang' => true,
+                ],
+                'required' => true,
+                'slug' => true,
+            ],
+            'Introtext' => [
+                'calling_name' => 'introtext',
+                'type' => 'FieldTexteditor',
+                'datafieldSettings' => [
+                    'multilang' => true,
+                ],
+            ],
+            'Bodytext' => [
+                'calling_name' => 'bodytext',
+                'type' => 'FieldTexteditor',
+                'datafieldSettings' => [
+                    'multilang' => true,
+                ],
+            ],
+        ];
+        if (is_array($extraFields)) :
+            $fields = array_merge($fields, $extraFields);
+        endif;
+
+        $fieldIds = $this->createDatafields($fields, 'calling_name');
+
+        return $this->createDatagroup(
+            'Pagina',
+            'name.' . $this->configuration->getLanguageShort(),
+            'template/core/Views/blocks/MainContent/core',
+            'content',
+            $fieldIds,
+            true
+        );
+    }
+
+    protected function createDatafields(
+        array $fields,
+        string $titleField,
+        int $order = 10
+    ): array
+    {
+        $return = [];
+        foreach ($fields as $title => $params) :
+            Datafield::setFindValue($titleField, $params['calling_name']);
+            Datafield::setFindPublished(false);
+            $datafields = Datafield::findAll();
+            if (count($datafields) === 0) :
+                $datafieldSettings = [];
+                if (isset($params['datafieldSettings'])) :
+                    $datafieldSettings = $params['datafieldSettings'];
+                endif;
+
+                $datafield = DatafieldFactory::create(
+                    $title,
+                    $params['calling_name'],
+                    $params['type'],
+                    $datafieldSettings,
+                    true,
+                    $order
+                );
+                $datafield->save();
+            else :
+                $datafield = $datafields[0];
+            endif;
+
+            $return[] = [
+                'id' => (string)$datafield->getId(),
+                'published' => true,
+                'required' => isset($params['required']) ? true : false,
+                'slug' => isset($params['slug']) ? true : false,
+                'slugCategory' => isset($params['slugCategory']) ? true : false,
+                'seoTitle' => isset($params['seoTitle']) ? true : false,
+            ];
+            $order++;
+        endforeach;
+
+        return $return;
     }
 
     protected function createDatagroup(
@@ -81,7 +285,8 @@ abstract class AbstractCreatorController extends AbstractController implements A
         bool $includeInSitemap = false,
         string $parentId = null,
         string $itemOrdering = ''
-    ): Datagroup {
+    ): Datagroup
+    {
         $datagroup = $this->repositories->datagroup->findFirst(
             new FindValueIterator([
                 new FindValue($titleField, $title),
@@ -138,211 +343,14 @@ abstract class AbstractCreatorController extends AbstractController implements A
         return $datagroup;
     }
 
-    protected function createItems(
-        array $pages,
-        string $titleField,
-        Datagroup $datagroup,
-        string $parentId = null,
-        int $startOrder = 0
-    ): array {
-        $return = [
-            'pages' => [],
-            'ids'   => [],
-        ];
-        foreach ($pages as $title => $params) :
-            $item = $this->repositories->item->findFirst(
-                new FindValueIterator([
-                    new FindValue($titleField, $title),
-                    new FindValue('datagroup', (string)$datagroup->getId()),
-                ]),
-                false
-            );
-            if ($item === null) :
-                $fieldValues = [];
-                if (is_array($params)) :
-                    $fieldValues = $params;
-                endif;
-                $item = ItemFactory::create(
-                    $title,
-                    (string)$datagroup->getId(),
-                    $fieldValues,
-                    true,
-                    $parentId,
-                    $startOrder
-                );
-                $this->eventsManager->fire(Item::class.':beforeModelSave', $item, $this);
-                $item->save();
-            endif;
-            $return['pages'][$title] = (string)$item->getId();
-            $return['ids'][] = (string)$item->getId();
-            $startOrder++;
-        endforeach;
-
-        return $return;
-    }
-
-    protected function createDatafields(
-        array $fields,
-        string $titleField,
-        int $order = 10
-    ): array {
-        $return = [];
-        foreach ($fields as $title => $params) :
-            Datafield::setFindValue($titleField, $params['calling_name']);
-            Datafield::setFindPublished(false);
-            $datafields = Datafield::findAll();
-            if (count($datafields) === 0) :
-                $datafieldSettings = [];
-                if (isset($params['datafieldSettings'])) :
-                    $datafieldSettings = $params['datafieldSettings'];
-                endif;
-
-                $datafield = DatafieldFactory::create(
-                    $title,
-                    $params['calling_name'],
-                    $params['type'],
-                    $datafieldSettings,
-                    true,
-                    $order
-                );
-                $datafield->save();
-            else :
-                $datafield = $datafields[0];
-            endif;
-
-            $return[] = [
-                'id'           => (string)$datafield->getId(),
-                'published'    => true,
-                'required'     => isset($params['required']) ? true : false,
-                'slug'         => isset($params['slug']) ? true : false,
-                'slugCategory' => isset($params['slugCategory']) ? true : false,
-                'seoTitle'     => isset($params['seoTitle']) ? true : false,
-            ];
-            $order++;
-        endforeach;
-
-        return $return;
-    }
-
-    protected function createBlocks(
-        array $blocks,
-        string $titleField,
-        int $order = 10
-    ): array {
-        $return = [
-            'blocks' => [],
-            'ids'    => [],
-        ];
-        foreach ($blocks as $title => $params) :
-            Block::setFindValue($titleField, $title);
-            Block::setFindPublished(false);
-            $blocks = Block::findAll();
-            if (count($blocks) === 0) :
-                $blockSettings = [];
-                if (isset($params['blockSettings'])) :
-                    $blockSettings = $params['blockSettings'];
-                endif;
-
-                $block = BlockFactory::create(
-                    $title,
-                    $params['block'],
-                    $params['template'],
-                    $blockSettings,
-                    true,
-                    $order
-                );
-                $block->save();
-
-                if (isset($params['position']) && isset($params['datagroup'])) :
-                    BlockPositionFactory::create(
-                        ucfirst($params['position']).' - '.$block->_('name'),
-                        (string)$block->getId(),
-                        $params['position'],
-                        $params['datagroup'],
-                        true,
-                        $order
-                    )->save();
-                endif;
-            else :
-                $block = $blocks[0];
-            endif;
-            $return['blocks'][$title] = (string)$block->getId();
-            $return['ids'][] = (string)$block->getId();
-            $order++;
-        endforeach;
-
-        return $return;
-    }
-
-    protected function createContentDatagroup(?array $extraFields = null): Datagroup
-    {
-        $fields = [
-            'Item naam' => [
-                'calling_name'      => 'name',
-                'type'              => 'FieldText',
-                'datafieldSettings' => [
-                    'inputType' => 'text',
-                    'multilang' => true,
-                ],
-                'required'          => true,
-                'slug'              => true,
-            ],
-            'Introtext' => [
-                'calling_name'      => 'introtext',
-                'type'              => 'FieldTexteditor',
-                'datafieldSettings' => [
-                    'multilang' => true,
-                ],
-            ],
-            'Bodytext'  => [
-                'calling_name'      => 'bodytext',
-                'type'              => 'FieldTexteditor',
-                'datafieldSettings' => [
-                    'multilang' => true,
-                ],
-            ],
-        ];
-        if (is_array($extraFields)) :
-            $fields = array_merge($fields, $extraFields);
-        endif;
-
-        $fieldIds = $this->createDatafields($fields, 'calling_name');
-
-        return $this->createDatagroup(
-            'Pagina',
-            'name.'.$this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/core',
-            'content',
-            $fieldIds,
-            true
-        );
-    }
-
-    protected function createPermissionRoles(array $roles): void
-    {
-        foreach ($roles as $name => $params) :
-            PermissionRole::setFindValue('calling_name', $params['calling_name']);
-            PermissionRole::setFindPublished(false);
-            $permissionRoles = PermissionRole::findAll();
-            if (count($permissionRoles) === 0) :
-                PermissionRoleFactory::create(
-                    $name,
-                    $params['calling_name'],
-                    true,
-                    isset($params['adminAccess']) ? true : false,
-                    isset($params['parentId']) ? $params['parentId'] : null
-                )->save();
-            endif;
-        endforeach;
-    }
-
     protected function createSystemEmails(
         array $emails,
         string $subjectField
-    ): array {
+    ): array
+    {
         $return = [
             'emails' => [],
-            'ids'    => [],
+            'ids' => [],
         ];
         foreach ($emails as $subject => $params) :
             Email::setFindValue($subjectField, $subject);
@@ -369,31 +377,28 @@ abstract class AbstractCreatorController extends AbstractController implements A
 
         $this->createSettings([
             'WEBSITE_CONTACT_EMAIL' => ['value' => ''],
-            'WEBSITE_DEFAULT_NAME'  => ['value' => ''],
+            'WEBSITE_DEFAULT_NAME' => ['value' => ''],
         ]);
 
         return $return;
     }
 
-    public function createBasicPermissionRoles(): void
+    protected function createSettings(array $settings): void
     {
-        $roles = [
-            'SuperAdmin'    => [
-                'calling_name' => 'superadmin',
-                'adminAccess'  => true,
-            ],
-            'Admin'         => [
-                'calling_name' => 'admin',
-                'adminAccess'  => true,
-            ],
-            'Geregistreerd' => [
-                'calling_name' => 'registered',
-            ],
-            'Gast'          => [
-                'calling_name' => 'guest',
-            ],
-        ];
-
-        $this->createPermissionRoles($roles);
+        foreach ($settings as $settingKey => $params) :
+            Setting::setFindValue('calling_name', $settingKey);
+            Setting::setFindPublished(false);
+            $settingItems = Setting::findAll();
+            if (\count($settingItems) === 0) :
+                $setting = SettingFactory::create(
+                    $settingKey,
+                    isset($params['type']) ? $params['type'] : 'SettingText',
+                    isset($params['value']) ? $params['value'] : '',
+                    isset($params['name']) ? $params['name'] : '',
+                    true
+                );
+                $setting->save();
+            endif;
+        endforeach;
     }
 }

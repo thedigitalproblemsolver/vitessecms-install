@@ -69,7 +69,7 @@ class ShopController extends AbstractCreatorController
     public function createAction()
     {
         DirectoryUtil::copy(
-            Di::getDefault()->get('config')->get('defaultTemplateDir').'samples/images',
+            Di::getDefault()->get('config')->get('defaultTemplateDir') . 'samples/images',
             Di::getDefault()->get('config')->get('uploadDir')
         );
 
@@ -104,8 +104,8 @@ class ShopController extends AbstractCreatorController
         $roles = [
             'Shop - admin' => [
                 'calling_name' => 'shopadmin',
-                'adminAccess'  => true,
-                'parentId'     => (string)$adminPermissionRole->getId(),
+                'adminAccess' => true,
+                'parentId' => (string)$adminPermissionRole->getId(),
             ],
         ];
 
@@ -134,19 +134,19 @@ class ShopController extends AbstractCreatorController
     protected function createProductsStructure(): void
     {
         $fields = [
-            'Item naam'  => [
-                'calling_name'      => 'name',
-                'type'              => 'FieldText',
+            'Item naam' => [
+                'calling_name' => 'name',
+                'type' => 'FieldText',
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
                 ],
-                'required'          => true,
-                'slug'              => true,
+                'required' => true,
+                'slug' => true,
             ],
             'Afbeelding' => [
-                'calling_name'      => 'image',
-                'type'              => 'FieldImage',
+                'calling_name' => 'image',
+                'type' => 'FieldImage',
                 'datafieldSettings' => [
                     'allowedFiletypeGroups' => ['rasterizedImages'],
                 ],
@@ -156,8 +156,8 @@ class ShopController extends AbstractCreatorController
 
         $this->mainProductCategory = $this->createDatagroup(
             'Hoofd categorie',
-            'name.'.$this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/shop_category_overview',
+            'name.' . $this->configuration->getLanguageShort(),
+            'template/core/Views/blocks/MainContent/shop_category_overview',
             'webshopProduct',
             $fieldIds,
             true
@@ -165,8 +165,8 @@ class ShopController extends AbstractCreatorController
 
         $this->subProductCategory = $this->createDatagroup(
             'Sub categorie',
-            'name.'.$this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/shop_product_overview',
+            'name.' . $this->configuration->getLanguageShort(),
+            'template/core/Views/blocks/MainContent/shop_product_overview',
             'webshopProduct',
             $fieldIds,
             true,
@@ -174,64 +174,64 @@ class ShopController extends AbstractCreatorController
         );
 
         $fields = [
-            'Item naam'        => [
-                'calling_name'      => 'name',
-                'type'              => 'FieldText',
+            'Item naam' => [
+                'calling_name' => 'name',
+                'type' => 'FieldText',
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
                 ],
-                'required'          => true,
-                'slug'              => true,
+                'required' => true,
+                'slug' => true,
             ],
-            'Introtext'        => [
-                'calling_name'      => 'introtext',
-                'type'              => 'FieldTexteditor',
+            'Introtext' => [
+                'calling_name' => 'introtext',
+                'type' => 'FieldTexteditor',
                 'datafieldSettings' => [
                     'multilang' => true,
                 ],
             ],
-            'Bodytext'         => [
-                'calling_name'      => 'bodytext',
-                'type'              => 'FieldTexteditor',
+            'Bodytext' => [
+                'calling_name' => 'bodytext',
+                'type' => 'FieldTexteditor',
                 'datafieldSettings' => [
                     'multilang' => true,
                 ],
             ],
-            'Afbeelding'       => [
-                'calling_name'      => 'image',
-                'type'              => 'FieldImage',
+            'Afbeelding' => [
+                'calling_name' => 'image',
+                'type' => 'FieldImage',
                 'datafieldSettings' => [
                     'allowedFiletypeGroups' => ['rasterizedImages'],
                 ],
             ],
-            'Prijs'            => [
-                'calling_name'      => 'price',
-                'type'              => 'FieldPrice',
+            'Prijs' => [
+                'calling_name' => 'price',
+                'type' => 'FieldPrice',
                 'datafieldSettings' => [],
             ],
-            'Belasting'        => [
-                'calling_name'      => 'taxrate',
-                'type'              => 'FieldModel',
+            'Belasting' => [
+                'calling_name' => 'taxrate',
+                'type' => 'FieldModel',
                 'datafieldSettings' => [
                     'model' => TaxRate::class,
                 ],
             ],
-            'Voorraad'         => [
-                'calling_name'      => 'stock',
-                'type'              => 'FieldText',
+            'Voorraad' => [
+                'calling_name' => 'stock',
+                'type' => 'FieldText',
                 'datafieldSettings' => [
                     'inputType' => 'number',
                 ],
             ],
-            'Uit voorraad'     => [
-                'calling_name'      => 'outOfStock',
-                'type'              => 'FieldCheckbox',
+            'Uit voorraad' => [
+                'calling_name' => 'outOfStock',
+                'type' => 'FieldCheckbox',
                 'datafieldSettings' => [],
             ],
             'Winkelwagen knop' => [
-                'calling_name'      => 'addtocart',
-                'type'              => 'FieldAddtocart',
+                'calling_name' => 'addtocart',
+                'type' => 'FieldAddtocart',
                 'datafieldSettings' => [],
             ],
         ];
@@ -239,8 +239,8 @@ class ShopController extends AbstractCreatorController
 
         $this->productGroup = $this->createDatagroup(
             'Product',
-            'name.'.$this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/shop_product',
+            'name.' . $this->configuration->getLanguageShort(),
+            'template/core/Views/blocks/MainContent/shop_product',
             'webshopProduct',
             $fieldIds,
             true,
@@ -253,7 +253,7 @@ class ShopController extends AbstractCreatorController
                     'image' => ['value' => 'shop_main_category.jpg'],
                 ],
             ],
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             $this->mainProductCategory
         );
 
@@ -263,7 +263,7 @@ class ShopController extends AbstractCreatorController
                     'image' => ['value' => 'shop_sub_category.jpg'],
                 ],
             ],
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             $this->subProductCategory,
             $this->mainProductCategoryItem['pages']['Hoofd categorie']
         );
@@ -272,27 +272,27 @@ class ShopController extends AbstractCreatorController
         $taxrate = TaxRate::findFirst();
 
         $productValues = [
-            'introtext'      => [
-                'value'     => '<p>Dit is de plek voor wat intro-tekst</p>',
+            'introtext' => [
+                'value' => '<p>Dit is de plek voor wat intro-tekst</p>',
                 'multilang' => true,
             ],
-            'bodytext'       => [
-                'value'     => '<p>Dit is de plek voor wat body-tekst</p>',
+            'bodytext' => [
+                'value' => '<p>Dit is de plek voor wat body-tekst</p>',
                 'multilang' => true,
             ],
-            'image'          => ['value' => 'product_in_stock.jpg'],
-            'price'          => ['value' => 16.4876],
+            'image' => ['value' => 'product_in_stock.jpg'],
+            'price' => ['value' => 16.4876],
             'price_purchase' => ['value' => 10.00],
-            'price_sale'     => ['value' => 19.95],
-            'taxrate'        => ['value' => (string)$taxrate->getId()],
-            'taxrateName'    => ['value' => $taxrate->_('name')],
-            'stock'          => ['value' => 16],
-            'outOfStock'     => ['value' => false],
-            'addtocart'      => ['value' => true],
+            'price_sale' => ['value' => 19.95],
+            'taxrate' => ['value' => (string)$taxrate->getId()],
+            'taxrateName' => ['value' => $taxrate->_('name')],
+            'stock' => ['value' => 16],
+            'outOfStock' => ['value' => false],
+            'addtocart' => ['value' => true],
         ];
         $this->createItems(
             ['Product in voorraad' => $productValues],
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             $this->productGroup,
             $this->subProductCategoryItem['pages']['Sub categorie']
         );
@@ -302,7 +302,7 @@ class ShopController extends AbstractCreatorController
         $productValues['outOfStock']['value'] = true;
         $this->createItems(
             ['Product uit voorraad' => $productValues],
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             $this->productGroup,
             $this->subProductCategoryItem['pages']['Sub categorie']
         );
@@ -491,22 +491,22 @@ class ShopController extends AbstractCreatorController
     {
         $fields = [
             'Item naam' => [
-                'calling_name'      => 'name',
-                'type'              => 'FieldText',
+                'calling_name' => 'name',
+                'type' => 'FieldText',
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
                 ],
-                'required'          => true,
-                'slug'              => true,
+                'required' => true,
+                'slug' => true,
             ],
         ];
         $fieldIds = $this->createDatafields($fields, 'calling_name');
 
         $this->checkoutDatagroup = $this->createDatagroup(
             'Afrekenflow',
-            'name.'.$this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/empty',
+            'name.' . $this->configuration->getLanguageShort(),
+            'template/core/Views/blocks/MainContent/empty',
             'webshopContent',
             $fieldIds,
             false,
@@ -528,31 +528,31 @@ class ShopController extends AbstractCreatorController
             [
                 'Winkelwagen' => [],
                 'Je gegevens' => [],
-                'Overzicht'   => [],
-                'Betalen'     => [],
-                'Bedankt'     => [],
+                'Overzicht' => [],
+                'Betalen' => [],
+                'Bedankt' => [],
             ],
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             $this->checkoutDatagroup
         );
 
         $fields = [
             'Item naam' => [
-                'calling_name'      => 'name',
-                'type'              => 'FieldText',
+                'calling_name' => 'name',
+                'type' => 'FieldText',
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
                 ],
-                'required'          => true,
+                'required' => true,
             ],
         ];
         $fieldIds = $this->createDatafields($fields, 'calling_name');
 
         $ratingDatagroup = $this->createDatagroup(
             'Waarderingen ',
-            'name.'.$this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/empty',
+            'name.' . $this->configuration->getLanguageShort(),
+            'template/core/Views/blocks/MainContent/empty',
             'webshopContent',
             $fieldIds,
             false,
@@ -563,13 +563,13 @@ class ShopController extends AbstractCreatorController
         $this->createItems(
             [
                 'Excellent!' => [],
-                'Zeer Goed'  => [],
-                'Goed'       => [],
-                'Matig'      => [],
-                'Tevreden'   => [],
-                'Slecht'     => [],
+                'Zeer Goed' => [],
+                'Goed' => [],
+                'Matig' => [],
+                'Tevreden' => [],
+                'Slecht' => [],
             ],
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             $ratingDatagroup
         );
 
@@ -596,99 +596,99 @@ class ShopController extends AbstractCreatorController
     {
         //registration form
         $fields = [
-            'Voornaam'                                  => [
-                'calling_name'      => 'firstName',
-                'type'              => 'FieldText',
+            'Voornaam' => [
+                'calling_name' => 'firstName',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Tussenvoegsel'                             => [
-                'calling_name'      => 'middleName',
-                'type'              => 'FieldText',
+            'Tussenvoegsel' => [
+                'calling_name' => 'middleName',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
-            'Achternaam'                                => [
-                'calling_name'      => 'lastName',
-                'type'              => 'FieldText',
+            'Achternaam' => [
+                'calling_name' => 'lastName',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'E-mail'                                    => [
-                'calling_name'      => 'email',
-                'type'              => 'FieldText',
+            'E-mail' => [
+                'calling_name' => 'email',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'email'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Wachtwoord'                                => [
-                'calling_name'      => 'password',
-                'type'              => 'FieldText',
+            'Wachtwoord' => [
+                'calling_name' => 'password',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'password'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Bevestig wachwoord'                        => [
-                'calling_name'      => 'password2',
-                'type'              => 'FieldText',
+            'Bevestig wachwoord' => [
+                'calling_name' => 'password2',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'password'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Bedrijfsnaam'                              => [
-                'calling_name'      => 'company',
-                'type'              => 'FieldText',
+            'Bedrijfsnaam' => [
+                'calling_name' => 'company',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
-            'Straat'                                    => [
-                'calling_name'      => 'street',
-                'type'              => 'FieldText',
+            'Straat' => [
+                'calling_name' => 'street',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Huisnummer'                                => [
-                'calling_name'      => 'houseNumber',
-                'type'              => 'FieldText',
+            'Huisnummer' => [
+                'calling_name' => 'houseNumber',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Postcode'                                  => [
-                'calling_name'      => 'zipCode',
-                'type'              => 'FieldText',
+            'Postcode' => [
+                'calling_name' => 'zipCode',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Woonplaats'                                => [
-                'calling_name'      => 'city',
-                'type'              => 'FieldText',
+            'Woonplaats' => [
+                'calling_name' => 'city',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Land'                                      => [
-                'calling_name'      => 'country',
-                'type'              => 'FieldModel',
+            'Land' => [
+                'calling_name' => 'country',
+                'type' => 'FieldModel',
                 'datafieldSettings' => ['model' => Country::class],
-                'required'          => true,
+                'required' => true,
             ],
-            'Telefoon'                                  => [
-                'calling_name'      => 'phoneNumber',
-                'type'              => 'FieldText',
+            'Telefoon' => [
+                'calling_name' => 'phoneNumber',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'tel'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Waar ken je ons van?'                      => [
-                'calling_name'      => 'refferer',
-                'type'              => 'FieldText',
+            'Waar ken je ons van?' => [
+                'calling_name' => 'refferer',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
             'Ik ga akkoord met de Leveringsvoorwaarden' => [
                 'calling_name' => 'agreedTerms',
-                'type'         => 'FieldCheckbox',
-                'required'     => true,
+                'type' => 'FieldCheckbox',
+                'required' => true,
             ],
         ];
         $fieldIds = $this->createDatafields($fields, 'calling_name');
 
         $registrationDatagroup = $this->createDatagroup(
             'Registratie',
-            'name.'.$this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/empty',
+            'name.' . $this->configuration->getLanguageShort(),
+            'template/core/Views/blocks/MainContent/empty',
             'form',
             $fieldIds,
             false,
@@ -707,27 +707,27 @@ class ShopController extends AbstractCreatorController
         endif;
 
         $fields = [
-            'Bedrijfsnaam'                              => [
-                'calling_name'      => 'companyName',
-                'type'              => 'FieldText',
+            'Bedrijfsnaam' => [
+                'calling_name' => 'companyName',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
-            'Waar ken je ons van?'                      => [
-                'calling_name'      => 'refferer',
-                'type'              => 'FieldText',
+            'Waar ken je ons van?' => [
+                'calling_name' => 'refferer',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
             'Ik ga akkoord met de Leveringsvoorwaarden' => [
                 'calling_name' => 'agreedTerms',
-                'type'         => 'FieldCheckbox',
-                'required'     => true,
+                'type' => 'FieldCheckbox',
+                'required' => true,
             ],
         ];
         $fieldIds = $this->createDatafields($fields, 'calling_name');
 
         $shopperInformationGroup = $this->createDatagroup(
             'ShopperInformatie',
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             '',
             'user',
             $fieldIds
@@ -751,67 +751,67 @@ class ShopController extends AbstractCreatorController
     protected function createShopShipTo()
     {
         $fields = [
-            'Voornaam'      => [
-                'calling_name'      => 'firstName',
-                'type'              => 'FieldText',
+            'Voornaam' => [
+                'calling_name' => 'firstName',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
             'Tussenvoegsel' => [
-                'calling_name'      => 'middleName',
-                'type'              => 'FieldText',
+                'calling_name' => 'middleName',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
-            'Achternaam'    => [
-                'calling_name'      => 'lastName',
-                'type'              => 'FieldText',
+            'Achternaam' => [
+                'calling_name' => 'lastName',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Bedrijfsnaam'  => [
-                'calling_name'      => 'companyName',
-                'type'              => 'FieldText',
+            'Bedrijfsnaam' => [
+                'calling_name' => 'companyName',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
-            'Straat'        => [
-                'calling_name'      => 'street',
-                'type'              => 'FieldText',
+            'Straat' => [
+                'calling_name' => 'street',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Huisnummer'    => [
-                'calling_name'      => 'houseNumber',
-                'type'              => 'FieldText',
+            'Huisnummer' => [
+                'calling_name' => 'houseNumber',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Postcode'      => [
-                'calling_name'      => 'zipCode',
-                'type'              => 'FieldText',
+            'Postcode' => [
+                'calling_name' => 'zipCode',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Woonplaats'    => [
-                'calling_name'      => 'city',
-                'type'              => 'FieldText',
+            'Woonplaats' => [
+                'calling_name' => 'city',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Land'          => [
-                'calling_name'      => 'country',
-                'type'              => 'FieldText',
+            'Land' => [
+                'calling_name' => 'country',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'Telefoon'      => [
-                'calling_name'      => 'phoneNumber',
-                'type'              => 'FieldText',
+            'Telefoon' => [
+                'calling_name' => 'phoneNumber',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'text'],
-                'required'          => true,
+                'required' => true,
             ],
-            'UserId'        => [
-                'calling_name'      => 'userId',
-                'type'              => 'FieldText',
+            'UserId' => [
+                'calling_name' => 'userId',
+                'type' => 'FieldText',
                 'datafieldSettings' => ['inputType' => 'hidden'],
             ],
         ];
@@ -819,7 +819,7 @@ class ShopController extends AbstractCreatorController
 
         $datagroup = $this->createDatagroup(
             'Shipto',
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             '',
             'user',
             $fieldIds
@@ -843,66 +843,66 @@ class ShopController extends AbstractCreatorController
     protected function createShopBlocks(): void
     {
         $blocks = [
-            'In/uitloggen'                   => [
-                'block'         => BlockUserLogin::class,
-                'template'      => 'template/core/views/blocks/UserLogin/core',
-                'position'      => 'topbar',
-                'datagroup'     => 'all',
+            'In/uitloggen' => [
+                'block' => BlockUserLogin::class,
+                'template' => 'template/core/Views/blocks/UserLogin/core',
+                'position' => 'topbar',
+                'datagroup' => 'all',
                 'blockSettings' => [
                     'class' => ['value' => 'container-login hidden-xs-down'],
                 ],
             ],
-            'Webshop - minicart'             => [
-                'block'     => BlockShopCart::class,
-                'template'  => 'template/core/views/blocks/ShopCart/mini',
-                'position'  => 'topbar',
+            'Webshop - minicart' => [
+                'block' => BlockShopCart::class,
+                'template' => 'template/core/Views/blocks/ShopCart/mini',
+                'position' => 'topbar',
                 'datagroup' => 'all',
             ],
-            'Webshop - afreken stappen'      => [
-                'block'         => BlockItemlist::class,
-                'template'      => 'template/core/views/blocks/Itemlist/checkout_steps',
-                'position'      => 'maincontent',
-                'datagroup'     => (string)$this->checkoutDatagroup->getId(),
+            'Webshop - afreken stappen' => [
+                'block' => BlockItemlist::class,
+                'template' => 'template/core/Views/blocks/Itemlist/checkout_steps',
+                'position' => 'maincontent',
+                'datagroup' => (string)$this->checkoutDatagroup->getId(),
                 'blockSettings' => [
-                    'class'    => ['value' => 'checkout-steps'],
+                    'class' => ['value' => 'checkout-steps'],
                     'listMode' => ['value' => 'datagroups'],
-                    'items'    => ['value' => [(string)$this->checkoutDatagroup->getId()]],
+                    'items' => ['value' => [(string)$this->checkoutDatagroup->getId()]],
                 ],
             ],
-            'Webshop - checkoutcart'         => [
-                'block'     => BlockShopCart::class,
-                'template'  => 'template/core/views/blocks/ShopCart/large',
-                'position'  => 'maincontent',
-                'datagroup' => ['page:'.$this->checkoutPages['pages']['Winkelwagen']],
+            'Webshop - checkoutcart' => [
+                'block' => BlockShopCart::class,
+                'template' => 'template/core/Views/blocks/ShopCart/large',
+                'position' => 'maincontent',
+                'datagroup' => ['page:' . $this->checkoutPages['pages']['Winkelwagen']],
             ],
             'Webshop - checkout information' => [
-                'block'     => BlockShopCheckoutInformation::class,
-                'template'  => 'template/core/views/blocks/ShopCheckoutInformation/core',
-                'position'  => 'maincontent',
-                'datagroup' => ['page:'.$this->checkoutPages['pages']['Je gegevens']],
+                'block' => BlockShopCheckoutInformation::class,
+                'template' => 'template/core/Views/blocks/ShopCheckoutInformation/core',
+                'position' => 'maincontent',
+                'datagroup' => ['page:' . $this->checkoutPages['pages']['Je gegevens']],
             ],
-            'Webshop - checkout summary'     => [
-                'block'     => BlockShopCheckoutSummary::class,
-                'template'  => 'template/core/views/blocks/ShopCheckoutSummary/core',
-                'position'  => 'maincontent',
-                'datagroup' => ['page:'.$this->checkoutPages['pages']['Overzicht']],
+            'Webshop - checkout summary' => [
+                'block' => BlockShopCheckoutSummary::class,
+                'template' => 'template/core/Views/blocks/ShopCheckoutSummary/core',
+                'position' => 'maincontent',
+                'datagroup' => ['page:' . $this->checkoutPages['pages']['Overzicht']],
             ],
-            'Webshop - payment result'       => [
-                'block'     => BlockShopPaymentResult::class,
-                'template'  => 'template/core/views/blocks/ShopPaymentResult/core',
-                'position'  => 'maincontent',
-                'datagroup' => ['page:'.$this->checkoutPages['pages']['Bedankt']],
+            'Webshop - payment result' => [
+                'block' => BlockShopPaymentResult::class,
+                'template' => 'template/core/Views/blocks/ShopPaymentResult/core',
+                'position' => 'maincontent',
+                'datagroup' => ['page:' . $this->checkoutPages['pages']['Bedankt']],
             ],
-            'Mijn bestellingen'              => [
-                'block'     => BlockShopUserOrders::class,
-                'template'  => 'template/core/views/blocks/ShopUserOrders/core',
-                'position'  => 'myaccount',
+            'Mijn bestellingen' => [
+                'block' => BlockShopUserOrders::class,
+                'template' => 'template/core/Views/blocks/ShopUserOrders/core',
+                'position' => 'myaccount',
                 'datagroup' => [],
             ],
-            'Wachtwoord aanpassen'           => [
-                'block'     => BlockUserChangePassword::class,
-                'template'  => 'template/core/views/blocks/UserChangePassword/core',
-                'position'  => 'myaccount',
+            'Wachtwoord aanpassen' => [
+                'block' => BlockUserChangePassword::class,
+                'template' => 'template/core/Views/blocks/UserChangePassword/core',
+                'position' => 'myaccount',
                 'datagroup' => [],
             ],
         ];
@@ -910,7 +910,7 @@ class ShopController extends AbstractCreatorController
         //myaccount
         $this->createBlocks(
             $blocks,
-            'name.'.$this->configuration->getLanguageShort()
+            'name.' . $this->configuration->getLanguageShort()
         );
     }
 }

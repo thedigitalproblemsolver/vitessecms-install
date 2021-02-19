@@ -19,11 +19,11 @@ class TaggingController extends AbstractCreatorController
 
         $contentDatagroup = $this->createContentDatagroup([
             'Tags' => [
-                'calling_name'      => 'tags',
-                'type'              => FieldEnum::TYPE_DATAGROUP,
+                'calling_name' => 'tags',
+                'type' => FieldEnum::TYPE_DATAGROUP,
                 'datafieldSettings' => [
                     'datagroup' => (string)$taggingDatagroups['child']->getId(),
-                    'multiple'  => true,
+                    'multiple' => true,
                 ],
             ],
         ]);
@@ -32,7 +32,7 @@ class TaggingController extends AbstractCreatorController
             [
                 'Tagging preview' => [],
             ],
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             $contentDatagroup
         );
 
@@ -56,16 +56,16 @@ class TaggingController extends AbstractCreatorController
     {
         $fields = [
             'Item naam' => [
-                'calling_name'      => 'name',
-                'type'              => FieldEnum::TYPE_TEXT,
+                'calling_name' => 'name',
+                'type' => FieldEnum::TYPE_TEXT,
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
                 ],
-                'required'          => true,
-                'slug'              => true,
-                'slugCategory'      => true,
-                'seoTitle'          => true,
+                'required' => true,
+                'slug' => true,
+                'slugCategory' => true,
+                'seoTitle' => true,
             ],
         ];
         $fieldIds = $this->createDatafields($fields, 'calling_name');
@@ -73,8 +73,8 @@ class TaggingController extends AbstractCreatorController
         $return = [];
         $return['parent'] = $this->createDatagroup(
             'Tagging',
-            'name.'.$this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/default_full_width',
+            'name.' . $this->configuration->getLanguageShort(),
+            'template/core/Views/blocks/MainContent/default_full_width',
             'content',
             $fieldIds,
             true
@@ -82,8 +82,8 @@ class TaggingController extends AbstractCreatorController
 
         $return['child'] = $this->createDatagroup(
             'Tag',
-            'name.'.$this->configuration->getLanguageShort(),
-            'template/core/views/blocks/MainContent/default_full_width',
+            'name.' . $this->configuration->getLanguageShort(),
+            'template/core/Views/blocks/MainContent/default_full_width',
             'content',
             $fieldIds,
             true,
@@ -98,16 +98,16 @@ class TaggingController extends AbstractCreatorController
         $taggingItems = [];
         $taggingItems['parent'] = $this->createItems(
             ['Tags' => []],
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             $taggingDatagroups['parent']
         );
 
         $taggingItems['child'] = $this->createItems(
             [
-                'First tag'  => [],
+                'First tag' => [],
                 'Second tag' => [],
             ],
-            'name.'.$this->configuration->getLanguageShort(),
+            'name.' . $this->configuration->getLanguageShort(),
             $taggingDatagroups['child'],
             (string)$taggingItems['parent']['ids'][0]
         );
@@ -121,48 +121,49 @@ class TaggingController extends AbstractCreatorController
         array $taggingItems,
         string $tagParentDatagroupId,
         string $tagChildDatagroupId
-    ): void {
+    ): void
+    {
         $datafieldTag = $this->repositories->datafield->findFirst(
             (new FindValueIterator([new FindValue('calling_name', 'tags')]))
         );
 
         $blocks = [
-            'Tagging - labels of all tags'    => [
-                'block'         => BlockItemlist::class,
-                'template'      => 'template/core/views/blocks/Itemlist/badges',
-                'position'      => 'right',
-                'datagroup'     => $homepageDatagroup,
+            'Tagging - labels of all tags' => [
+                'block' => BlockItemlist::class,
+                'template' => 'template/core/Views/blocks/Itemlist/badges',
+                'position' => 'right',
+                'datagroup' => $homepageDatagroup,
                 'blockSettings' => [
-                    'listMode'   => ['value' => 'childrenOfItem'],
+                    'listMode' => ['value' => 'childrenOfItem'],
                     'submitText' => ['value' => 'name'],
-                    'item'       => ['value' => (string)$taggingItems['parent']['ids'][0]],
+                    'item' => ['value' => (string)$taggingItems['parent']['ids'][0]],
                 ],
             ],
             'Tagging - introtext of all tags' => [
-                'block'         => BlockItemlist::class,
-                'template'      => 'template/core/views/blocks/Itemlist/introtext',
-                'position'      => 'belowMaincontent',
-                'datagroup'     => $tagParentDatagroupId,
+                'block' => BlockItemlist::class,
+                'template' => 'template/core/Views/blocks/Itemlist/introtext',
+                'position' => 'belowMaincontent',
+                'datagroup' => $tagParentDatagroupId,
                 'blockSettings' => [
-                    'listMode'            => ['value' => 'currentChildren'],
-                    'readmoreText'        => '%CORE_READ_MORE%',
+                    'listMode' => ['value' => 'currentChildren'],
+                    'readmoreText' => '%CORE_READ_MORE%',
                     'readmoreShowPerItem' => ['value' => true],
                 ],
             ],
-            'Tagging - items of active tag'   => [
-                'block'         => BlockItemlist::class,
-                'template'      => 'template/core/views/blocks/Itemlist/introtext',
-                'position'      => 'belowMaincontent',
-                'datagroup'     => $tagChildDatagroupId,
+            'Tagging - items of active tag' => [
+                'block' => BlockItemlist::class,
+                'template' => 'template/core/Views/blocks/Itemlist/introtext',
+                'position' => 'belowMaincontent',
+                'datagroup' => $tagChildDatagroupId,
                 'blockSettings' => [
-                    'listMode'                 => ['value' => 'datagroups'],
-                    'displayOrdering'          => ['value' => 'createdAt'],
+                    'listMode' => ['value' => 'datagroups'],
+                    'displayOrdering' => ['value' => 'createdAt'],
                     'displayOrderingDirection' => ['value' => 'newest'],
-                    'submitText'               => ['value' => 'name'],
-                    'readmoreText'             => '%CORE_READ_MORE%',
-                    'readmoreShowPerItem'      => ['value' => true],
-                    'items'                    => ['value' => [$contentDatagroupId]],
-                    'datafieldValue'           => [
+                    'submitText' => ['value' => 'name'],
+                    'readmoreText' => '%CORE_READ_MORE%',
+                    'readmoreShowPerItem' => ['value' => true],
+                    'items' => ['value' => [$contentDatagroupId]],
+                    'datafieldValue' => [
                         'value' => [
                             'tags' => ItemListEnum::OPTION_CURRENT_ITEM,
                         ],
@@ -170,10 +171,10 @@ class TaggingController extends AbstractCreatorController
                 ],
             ],
             'Tagging - tags of current item ' => [
-                'block'         => BlockDatagroup::class,
-                'template'      => 'template/core/views/blocks/Datagroup/badges',
-                'position'      => 'belowMaincontent',
-                'datagroup'     => $contentDatagroupId,
+                'block' => BlockDatagroup::class,
+                'template' => 'template/core/Views/blocks/Datagroup/badges',
+                'position' => 'belowMaincontent',
+                'datagroup' => $contentDatagroupId,
                 'blockSettings' => [
                     'datagroup' => ['value' => $contentDatagroupId],
                     'datafield' => ['value' => (string)$datafieldTag->getId()],
@@ -181,6 +182,6 @@ class TaggingController extends AbstractCreatorController
             ],
         ];
 
-        $this->createBlocks($blocks, 'name.'.$this->configuration->getLanguageShort());
+        $this->createBlocks($blocks, 'name.' . $this->configuration->getLanguageShort());
     }
 }
