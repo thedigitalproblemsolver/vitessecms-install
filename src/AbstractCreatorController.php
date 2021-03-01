@@ -6,6 +6,7 @@ use VitesseCms\Block\Factories\BlockFactory;
 use VitesseCms\Block\Factories\BlockPositionFactory;
 use VitesseCms\Communication\Factories\EmailFactory;
 use VitesseCms\Communication\Models\Email;
+use VitesseCms\Content\Controllers\AdminitemController;
 use VitesseCms\Content\Factories\ItemFactory;
 use VitesseCms\Core\AbstractController;
 use VitesseCms\Block\Models\Block;
@@ -126,7 +127,7 @@ abstract class AbstractCreatorController extends AbstractController implements A
                     $parentId,
                     $startOrder
                 );
-                $this->eventsManager->fire(Item::class . ':beforeModelSave', $item, $this);
+                $this->eventsManager->fire(AdminitemController::class . ':beforeModelSave', $item, $this);
                 $item->save();
             endif;
             $return['pages'][$title] = (string)$item->getId();
