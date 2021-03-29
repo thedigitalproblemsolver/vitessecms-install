@@ -3,7 +3,7 @@
 namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Block\Models\BlockFormBuilder;
-use VitesseCms\Core\Models\Datagroup;
+use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\ContactForm;

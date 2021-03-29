@@ -67,6 +67,6 @@ class LogoController extends AbstractCreatorController
 
         $this->flash->setSucces('Logo created');
 
-        $this->redirect();
+        $this->redirect('admin/install/sitecreator/index');
     }
 }

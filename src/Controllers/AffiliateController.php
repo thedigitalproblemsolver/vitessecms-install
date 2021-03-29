@@ -5,9 +5,9 @@ namespace VitesseCms\Install\Controllers;
 use VitesseCms\Block\Models\BlockAffiliateInitialize;
 use VitesseCms\Block\Models\BlockAffiliateOrderOverview;
 use VitesseCms\Datafield\Models\Datafield;
-use VitesseCms\Core\Models\Datagroup;
+use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Install\Repositories\AdminRepositoriesInterface;
-use VitesseCms\Setting\Models\Setting;
+use VitesseCms\Setting\Factory\SettingFactory;
 use VitesseCms\Datafield\Models\FieldModel;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\AffiliateForm;
@@ -17,7 +17,7 @@ class AffiliateController extends AbstractCreatorController implements AdminRepo
 {
     public function createAction(): void
     {
-        if (empty($this->setting->get('SHOP_DATAGROUP_AFFILIATE'))) :
+        if (!$this->setting->has('SHOP_DATAGROUP_AFFILIATE')) :
             $this->view->setVar('content',
                 (new AffiliateForm())
                     ->setRepositories($this->repositories)
@@ -33,14 +33,14 @@ class AffiliateController extends AbstractCreatorController implements AdminRepo
     public function parseCreateFormAction(): void
     {
         if ((new AffiliateForm())->validate($this)) :
-            if (empty($this->setting->get('SHOP_DATAGROUP_AFFILIATE'))) :
-                Setting::setFindPublished(false);
-                Setting::setFindValue('calling_name', 'SHOP_DATAGROUP_AFFILIATE');
-                Setting::findFirst()
-                    ->set('value', $this->request->getPost('SHOP_DATAGROUP_AFFILIATE'), true)
-                    ->set('published', true)
-                    ->set('type', 'SettingDatagroup')
-                    ->save();
+            if (!$this->setting->has('SHOP_DATAGROUP_AFFILIATE')) :
+                SettingFactory::create(
+                    'SHOP_DATAGROUP_AFFILIATE',
+                    'SettingDatagroup',
+                    $this->request->getPost('SHOP_DATAGROUP_AFFILIATE'),
+                    'SHOP_DATAGROUP_AFFILIATE',
+                    true
+                )->save();
             endif;
             parent::redirect('admin/install/affiliate/doCreate');
         else :

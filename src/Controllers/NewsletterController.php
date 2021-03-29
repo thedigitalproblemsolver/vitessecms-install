@@ -10,7 +10,7 @@ use VitesseCms\Communication\Factories\NewsletterTemplateFactory;
 use VitesseCms\Communication\Models\Newsletter;
 use VitesseCms\Communication\Models\NewsletterList;
 use VitesseCms\Communication\Models\NewsletterTemplate;
-use VitesseCms\Core\Models\Datagroup;
+use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Datafield\Models\FieldText;
 use VitesseCms\Install\AbstractCreatorController;
@@ -25,8 +25,8 @@ class NewsletterController extends AbstractCreatorController
     public function createAction(): void
     {
         if (
-            !$this->setting->has('WEBSITE_CONTACT_EMAIL')
-            || !$this->setting->has('WEBSITE_DEFAULT_NAME')
+            !$this->setting->has('WEBSITE_CONTACT_EMAIL',false)
+            || !$this->setting->has('WEBSITE_DEFAULT_NAME',false)
         ) :
             $this->view->setVar('content', (new ContactForm())->renderForm('admin/install/newsletter/parseCreateForm'));
             $this->prepareView();
@@ -41,14 +41,14 @@ class NewsletterController extends AbstractCreatorController
     public function parseCreateFormAction(): void
     {
         if ((new ContactForm())->validate($this)) :
-            if (!$this->setting->has('WEBSITE_DEFAULT_NAME')) :
+            if (!$this->setting->has('WEBSITE_DEFAULT_NAME', false)) :
                 Setting::setFindPublished(false);
                 Setting::setFindValue('calling_name', 'WEBSITE_DEFAULT_NAME');
                 $setting = Setting::findFirst();
                 $setting->set('value', $this->request->getPost('WEBSITE_DEFAULT_NAME'), true);
                 $setting->save();
             endif;
-            if (!$this->setting->has('WEBSITE_CONTACT_EMAIL')) :
+            if (!$this->setting->has('WEBSITE_CONTACT_EMAIL', false)) :
                 Setting::setFindPublished(false);
                 Setting::setFindValue('calling_name', 'WEBSITE_CONTACT_EMAIL');
                 $setting = Setting::findFirst();
