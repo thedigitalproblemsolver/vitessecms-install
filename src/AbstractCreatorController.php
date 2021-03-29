@@ -8,6 +8,8 @@ use VitesseCms\Communication\Factories\EmailFactory;
 use VitesseCms\Communication\Models\Email;
 use VitesseCms\Content\Controllers\AdminitemController;
 use VitesseCms\Content\Factories\ItemFactory;
+use VitesseCms\Content\Repositories\AdminRepositoryCollection;
+use VitesseCms\Content\Repositories\ItemRepository;
 use VitesseCms\Core\AbstractController;
 use VitesseCms\Block\Models\Block;
 use VitesseCms\Content\Models\Item;
@@ -16,10 +18,14 @@ use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Core\Models\Datagroup;
 use VitesseCms\Database\Models\FindValue;
 use VitesseCms\Database\Models\FindValueIterator;
+use VitesseCms\Datafield\Repositories\DatafieldRepository;
+use VitesseCms\Datagroup\Repositories\DatagroupRepository;
 use VitesseCms\Install\Interfaces\AdminRepositoriesInterface;
+use VitesseCms\Language\Repositories\LanguageRepository;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Datafield\Factories\DatafieldFactory;
 use VitesseCms\Setting\Factory\SettingFactory;
+use VitesseCms\User\Enums\UserRoleEnum;
 use VitesseCms\User\Factories\PermissionRoleFactory;
 use VitesseCms\User\Models\PermissionRole;
 use VitesseCms\User\Utils\PermissionUtils;
@@ -58,7 +64,7 @@ abstract class AbstractCreatorController extends AbstractController implements A
     {
         $roles = [
             'SuperAdmin' => [
-                'calling_name' => 'superadmin',
+                'calling_name' => UserRoleEnum::SUPER_ADMIN,
                 'adminAccess' => true,
             ],
             'Admin' => [
@@ -102,6 +108,8 @@ abstract class AbstractCreatorController extends AbstractController implements A
         int $startOrder = 0
     ): array
     {
+        $adminitemController = new AdminitemController();
+
         $return = [
             'pages' => [],
             'ids' => [],

@@ -24,7 +24,7 @@ class SeotoolsController extends AbstractCreatorController
     {
         $settings = [];
 
-        if (!$this->setting->has(CallingNameEnum::GOOGLE_ANALYTICS_TRACKINGID)) :
+        if (!$this->setting->has(CallingNameEnum::GOOGLE_ANALYTICS_TRACKINGID,false)) :
             $settings[CallingNameEnum::GOOGLE_ANALYTICS_TRACKINGID] = [
                 'type' => TypeEnum::TEXT,
                 'value' => $this->request->get('ga_tracking_id'),
@@ -32,7 +32,7 @@ class SeotoolsController extends AbstractCreatorController
             ];
         endif;
 
-        if (!$this->setting->has(CallingNameEnum::GOOGLE_SITE_VERIFICATION)) :
+        if (!$this->setting->has(CallingNameEnum::GOOGLE_SITE_VERIFICATION, false)) :
             $settings[CallingNameEnum::GOOGLE_SITE_VERIFICATION] = [
                 'type' => TypeEnum::TEXT,
                 'value' => $this->request->get('google_site_verification'),
@@ -44,6 +44,6 @@ class SeotoolsController extends AbstractCreatorController
 
         $this->flash->setSucces('Seotools created');
 
-        $this->redirect();
+        $this->redirect('admin/install/sitecreator/index');
     }
 }

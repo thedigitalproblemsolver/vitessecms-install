@@ -1,0 +1,16 @@
+@import "variables";
+@import "../../../template/vertical/scss/style.scss";
+@import "../../../../vendor/vitessecms/mustache/src/template/core/scss/mixins/_shop";
+
+@import "../../../../vendor/vitessecms/mustache/src/template/core/scss/mixins/_flag-icon-base";
+@include flag-icon(nl);
+@include flag-icon(be);
+@include flag-icon(gb);
+
+//elements
+@import '_html';
+@import "screens/_xs";
+@import "screens/_sm";
+@import "screens/_md";
+@import "screens/_lg";
+@import "screens/_xl";
