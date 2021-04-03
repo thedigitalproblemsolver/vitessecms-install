@@ -43,10 +43,10 @@ class IndexController extends AbstractCreatorController implements RepositoriesI
 
             $this->createBasicPermissionRoles();
 
-            $user = UserFactory::create(
+            UserFactory::create(
                 $post['email'],
                 $post['password'],
-                $this->repositories->permissionRole->findFirst(new FindValueIterator(
+                (string) $this->repositories->permissionRole->findFirst(new FindValueIterator(
                     [new FindValue('calling_name', UserRoleEnum::SUPER_ADMIN)]
                 ))->getId(),
                 true
