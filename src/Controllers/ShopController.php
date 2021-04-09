@@ -157,7 +157,7 @@ class ShopController extends AbstractCreatorController
         $this->mainProductCategory = $this->createDatagroup(
             'Hoofd categorie',
             'name.' . $this->configuration->getLanguageShort(),
-            'template/core/Views/blocks/MainContent/shop_category_overview',
+            'Template/core/Views/blocks/MainContent/shop_category_overview',
             'webshopProduct',
             $fieldIds,
             true
@@ -166,7 +166,7 @@ class ShopController extends AbstractCreatorController
         $this->subProductCategory = $this->createDatagroup(
             'Sub categorie',
             'name.' . $this->configuration->getLanguageShort(),
-            'template/core/Views/blocks/MainContent/shop_product_overview',
+            'Template/core/Views/blocks/MainContent/shop_product_overview',
             'webshopProduct',
             $fieldIds,
             true,
@@ -240,7 +240,7 @@ class ShopController extends AbstractCreatorController
         $this->productGroup = $this->createDatagroup(
             'Product',
             'name.' . $this->configuration->getLanguageShort(),
-            'template/core/Views/blocks/MainContent/shop_product',
+            'Template/core/Views/blocks/MainContent/shop_product',
             'webshopProduct',
             $fieldIds,
             true,
@@ -506,7 +506,7 @@ class ShopController extends AbstractCreatorController
         $this->checkoutDatagroup = $this->createDatagroup(
             'Afrekenflow',
             'name.' . $this->configuration->getLanguageShort(),
-            'template/core/Views/blocks/MainContent/empty',
+            'Template/core/Views/blocks/MainContent/empty',
             'webshopContent',
             $fieldIds,
             false,
@@ -552,7 +552,7 @@ class ShopController extends AbstractCreatorController
         $ratingDatagroup = $this->createDatagroup(
             'Waarderingen ',
             'name.' . $this->configuration->getLanguageShort(),
-            'template/core/Views/blocks/MainContent/empty',
+            'Template/core/Views/blocks/MainContent/empty',
             'webshopContent',
             $fieldIds,
             false,
@@ -688,7 +688,7 @@ class ShopController extends AbstractCreatorController
         $registrationDatagroup = $this->createDatagroup(
             'Registratie',
             'name.' . $this->configuration->getLanguageShort(),
-            'template/core/Views/blocks/MainContent/empty',
+            'Template/core/Views/blocks/MainContent/empty',
             'form',
             $fieldIds,
             false,
@@ -845,7 +845,7 @@ class ShopController extends AbstractCreatorController
         $blocks = [
             'In/uitloggen' => [
                 'block' => BlockUserLogin::class,
-                'template' => 'template/core/Views/blocks/UserLogin/core',
+                'template' => 'Template/core/Views/blocks/UserLogin/core',
                 'position' => 'topbar',
                 'datagroup' => 'all',
                 'blockSettings' => [
@@ -854,13 +854,13 @@ class ShopController extends AbstractCreatorController
             ],
             'Webshop - minicart' => [
                 'block' => BlockShopCart::class,
-                'template' => 'template/core/Views/blocks/ShopCart/mini',
+                'template' => 'Template/core/Views/blocks/ShopCart/mini',
                 'position' => 'topbar',
                 'datagroup' => 'all',
             ],
             'Webshop - afreken stappen' => [
                 'block' => BlockItemlist::class,
-                'template' => 'template/core/Views/blocks/Itemlist/checkout_steps',
+                'template' => 'Template/core/Views/blocks/Itemlist/checkout_steps',
                 'position' => 'maincontent',
                 'datagroup' => (string)$this->checkoutDatagroup->getId(),
                 'blockSettings' => [
@@ -871,37 +871,37 @@ class ShopController extends AbstractCreatorController
             ],
             'Webshop - checkoutcart' => [
                 'block' => BlockShopCart::class,
-                'template' => 'template/core/Views/blocks/ShopCart/large',
+                'template' => 'Template/core/Views/blocks/ShopCart/large',
                 'position' => 'maincontent',
                 'datagroup' => ['page:' . $this->checkoutPages['pages']['Winkelwagen']],
             ],
             'Webshop - checkout information' => [
                 'block' => BlockShopCheckoutInformation::class,
-                'template' => 'template/core/Views/blocks/ShopCheckoutInformation/core',
+                'template' => 'Template/core/Views/blocks/ShopCheckoutInformation/core',
                 'position' => 'maincontent',
                 'datagroup' => ['page:' . $this->checkoutPages['pages']['Je gegevens']],
             ],
             'Webshop - checkout summary' => [
                 'block' => BlockShopCheckoutSummary::class,
-                'template' => 'template/core/Views/blocks/ShopCheckoutSummary/core',
+                'template' => 'Template/core/Views/blocks/ShopCheckoutSummary/core',
                 'position' => 'maincontent',
                 'datagroup' => ['page:' . $this->checkoutPages['pages']['Overzicht']],
             ],
             'Webshop - payment result' => [
                 'block' => BlockShopPaymentResult::class,
-                'template' => 'template/core/Views/blocks/ShopPaymentResult/core',
+                'template' => 'Template/core/Views/blocks/ShopPaymentResult/core',
                 'position' => 'maincontent',
                 'datagroup' => ['page:' . $this->checkoutPages['pages']['Bedankt']],
             ],
             'Mijn bestellingen' => [
                 'block' => BlockShopUserOrders::class,
-                'template' => 'template/core/Views/blocks/ShopUserOrders/core',
+                'template' => 'Template/core/Views/blocks/ShopUserOrders/core',
                 'position' => 'myaccount',
                 'datagroup' => [],
             ],
             'Wachtwoord aanpassen' => [
                 'block' => BlockUserChangePassword::class,
-                'template' => 'template/core/Views/blocks/UserChangePassword/core',
+                'template' => 'Template/core/Views/blocks/UserChangePassword/core',
                 'position' => 'myaccount',
                 'datagroup' => [],
             ],

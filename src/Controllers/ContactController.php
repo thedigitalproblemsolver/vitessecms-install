@@ -103,7 +103,7 @@ class ContactController extends AbstractCreatorController
         return $this->createDatagroup(
             'Contact',
             'name.' . $this->configuration->getLanguageShort(),
-            'template/core/Views/blocks/MainContent/core',
+            'Template/core/Views/blocks/MainContent/core',
             'form',
             $fieldIds
         );
@@ -114,7 +114,7 @@ class ContactController extends AbstractCreatorController
         $blocks = [
             'Formulier - contact' => [
                 'block' => BlockFormBuilder::class,
-                'template' => 'template/core/Views/blocks/FormBuilder/main_content',
+                'template' => 'Template/core/Views/blocks/FormBuilder/main_content',
                 'position' => 'maincontent',
                 'datagroup' => 'page:' . $pages['ids'][0],
                 'blockSettings' => [
