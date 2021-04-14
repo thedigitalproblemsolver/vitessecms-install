@@ -25,7 +25,7 @@ class MenuController extends AbstractCreatorController implements AdminRepositor
         $blocks = [
             'MainMenu' => [
                 'block' => BlockItemlist::class,
-                'template' => 'Template/core/Views/blocks/Itemlist/vertical_menu',
+                'template' => 'views/blocks/Itemlist/vertical_menu',
                 'position' => 'menu',
                 'datagroup' => 'all',
                 'blockSettings' => [

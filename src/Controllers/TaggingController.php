@@ -74,7 +74,7 @@ class TaggingController extends AbstractCreatorController
         $return['parent'] = $this->createDatagroup(
             'Tagging',
             'name.' . $this->configuration->getLanguageShort(),
-            'Template/core/Views/blocks/MainContent/default_full_width',
+            'views/blocks/MainContent/default_full_width',
             'content',
             $fieldIds,
             true
@@ -83,7 +83,7 @@ class TaggingController extends AbstractCreatorController
         $return['child'] = $this->createDatagroup(
             'Tag',
             'name.' . $this->configuration->getLanguageShort(),
-            'Template/core/Views/blocks/MainContent/default_full_width',
+            'views/blocks/MainContent/default_full_width',
             'content',
             $fieldIds,
             true,
@@ -130,7 +130,7 @@ class TaggingController extends AbstractCreatorController
         $blocks = [
             'Tagging - labels of all tags' => [
                 'block' => BlockItemlist::class,
-                'template' => 'Template/core/Views/blocks/Itemlist/badges',
+                'template' => 'views/blocks/Itemlist/badges',
                 'position' => 'right',
                 'datagroup' => $homepageDatagroup,
                 'blockSettings' => [
@@ -141,7 +141,7 @@ class TaggingController extends AbstractCreatorController
             ],
             'Tagging - introtext of all tags' => [
                 'block' => BlockItemlist::class,
-                'template' => 'Template/core/Views/blocks/Itemlist/introtext',
+                'template' => 'views/blocks/Itemlist/introtext',
                 'position' => 'belowMaincontent',
                 'datagroup' => $tagParentDatagroupId,
                 'blockSettings' => [
@@ -152,7 +152,7 @@ class TaggingController extends AbstractCreatorController
             ],
             'Tagging - items of active tag' => [
                 'block' => BlockItemlist::class,
-                'template' => 'Template/core/Views/blocks/Itemlist/introtext',
+                'template' => 'views/blocks/Itemlist/introtext',
                 'position' => 'belowMaincontent',
                 'datagroup' => $tagChildDatagroupId,
                 'blockSettings' => [
@@ -172,7 +172,7 @@ class TaggingController extends AbstractCreatorController
             ],
             'Tagging - tags of current item ' => [
                 'block' => BlockDatagroup::class,
-                'template' => 'Template/core/Views/blocks/Datagroup/badges',
+                'template' => 'views/blocks/Datagroup/badges',
                 'position' => 'belowMaincontent',
                 'datagroup' => $contentDatagroupId,
                 'blockSettings' => [
