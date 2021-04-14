@@ -37,7 +37,7 @@ class HomepageController extends AbstractCreatorController
         $itemGroup = $this->createDatagroup(
             'Homepage',
             'name.' . $this->configuration->getLanguageShort(),
-            'Template/core/Views/blocks/MainContent/core',
+            'views/blocks/MainContent/default_full_width',
             'content',
             $fieldIds,
             true
@@ -62,7 +62,7 @@ class HomepageController extends AbstractCreatorController
         $blocks = [
             'Bodytext' => [
                 'block' => BlockMainContent::class,
-                'template' => 'Template/core/Views/blocks/MainContent/core',
+                'template' => 'views/blocks/MainContent/default_full_width',
                 'position' => 'maincontent',
                 'datagroup' => 'all',
             ],

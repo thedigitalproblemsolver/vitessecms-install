@@ -36,7 +36,7 @@ class FilterController extends AbstractCreatorController
         $blocks = [
             'Filter - resultaten' => [
                 'block' => BlockFilterResult::class,
-                'template' => '../../../../../Template/core/Views/blocks/FilterResult/core',
+                'template' => '../../../../../views/blocks/FilterResult/core',
                 'blockSettings' => [
                     'class' => 'container-filter-result',
                 ],
@@ -51,7 +51,7 @@ class FilterController extends AbstractCreatorController
         $blocks = [
             'Filter' => [
                 'block' => BlockFilter::class,
-                'template' => '../../../../../Template/core/Views/blocks/Filter/core',
+                'template' => '../../../../../views/blocks/Filter/core',
                 'blockSettings' => [
                     'class' => 'container-filter',
                     'targetPage' => $pages['pages']['Filter resultaten']

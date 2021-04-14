@@ -92,13 +92,13 @@ class AffiliateController extends AbstractCreatorController implements AdminRepo
         $blocks = [
             'Mijn wederverkopen' => [
                 'block' => BlockAffiliateOrderOverview::class,
-                'template' => 'Template/core/Views/blocks/AffiliateOrderOverview/core',
+                'template' => 'views/blocks/AffiliateOrderOverview/core',
                 'position' => 'myaccount',
                 'datagroup' => [],
             ],
             'Affiliate initializer' => [
                 'block' => BlockAffiliateInitialize::class,
-                'template' => 'Template/core/Views/blocks/AffiliateInitialize/core',
+                'template' => 'views/blocks/AffiliateInitialize/core',
                 'position' => 'footer',
                 'datagroup' => [(string)$datagroup->getId()],
                 'blockSettings' => [

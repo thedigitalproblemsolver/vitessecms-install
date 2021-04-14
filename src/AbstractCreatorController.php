@@ -228,7 +228,7 @@ abstract class AbstractCreatorController extends AbstractController implements A
         return $this->createDatagroup(
             'Pagina',
             'name.' . $this->configuration->getLanguageShort(),
-            'Template/core/Views/blocks/MainContent/core',
+            'views/blocks/MainContent/core',
             'content',
             $fieldIds,
             true
