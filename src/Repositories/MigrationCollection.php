@@ -11,10 +11,17 @@ class MigrationCollection implements MigrationCollectionInterface
      */
     public $datagroup;
 
+    /**
+     * @var MigrationRepository
+     */
+    public $migration;
+
     public function __construct(
-        DatagroupRepository $datagroupRepository
+        DatagroupRepository $datagroupRepository,
+        MigrationRepository $migrationRepository
     )
     {
         $this->datagroup = $datagroupRepository;
+        $this->migration = $migrationRepository;
     }
 }

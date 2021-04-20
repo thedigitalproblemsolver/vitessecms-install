@@ -5,7 +5,8 @@ namespace VitesseCms\Install\Repositories;
 use VitesseCms\Datagroup\Repositories\DatagroupRepository;
 
 /**
- * @property DatagroupRepository $datagroup;
+ * @property DatagroupRepository $datagroup
+ * @property MigrationRepository $migration
  */
 interface MigrationCollectionInterface
 {

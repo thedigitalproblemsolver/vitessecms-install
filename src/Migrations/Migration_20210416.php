@@ -50,7 +50,7 @@ class Migration_20210416 implements MigrationInterface
                 $datagroup->setTemplate($template);
                 $datagroup->save();
             else :
-                echo 'Error: wrong template "'.$template.'"'.PHP_EOL;
+                echo "\e[0;31mError:\e[0m wrong template \"".$template.'" for datagroup "'.$datagroup->getNameField().'"'.PHP_EOL;
                 $result = false;
             endif;
 
