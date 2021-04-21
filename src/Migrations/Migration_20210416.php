@@ -2,19 +2,21 @@
 
 namespace VitesseCms\Install\Migrations;
 
+use VitesseCms\Cli\Services\TerminalServiceInterface;
 use VitesseCms\Configuration\Services\ConfigServiceInterface;
 use VitesseCms\Install\Interfaces\MigrationInterface;
 use VitesseCms\Install\Repositories\MigrationCollectionInterface;
 
 class Migration_20210416 implements MigrationInterface
 {
-
     public static function up(
         ConfigServiceInterface $configService,
-        MigrationCollectionInterface $migrationCollection
-    ): bool {
+        MigrationCollectionInterface $migrationCollection,
+        TerminalServiceInterface $terminalService
+    ): bool
+    {
         $result = true;
-        if(!self::parseDatagroups($migrationCollection)) :
+        if (!self::parseDatagroups($migrationCollection, $terminalService)) :
             $result = false;
         endif;
 
@@ -22,11 +24,13 @@ class Migration_20210416 implements MigrationInterface
     }
 
     private static function parseDatagroups(
-        MigrationCollectionInterface $migrationCollection
-    ): bool {
+        MigrationCollectionInterface $migrationCollection,
+        TerminalServiceInterface $terminalService
+    ): bool
+    {
         $result = true;
         $datagroups = $migrationCollection->datagroup->findAll(null, false);
-        $dir = str_replace('install/src/Migrations','core/src/Services/../../../../../vendor/vitessecms/mustache/src/',__DIR__);
+        $dir = str_replace('install/src/Migrations', 'core/src/Services/../../../../../vendor/vitessecms/mustache/src/', __DIR__);
         while ($datagroups->valid()):
             $datagroup = $datagroups->current();
 
@@ -46,18 +50,17 @@ class Migration_20210416 implements MigrationInterface
             ];
             $template = str_replace($search, $replace, $datagroup->getTemplate());
 
-            if(substr( $template, 0, 6 ) === "views/") :
+            if (substr($template, 0, 6) === "views/") :
                 $datagroup->setTemplate($template);
                 $datagroup->save();
             else :
-                echo "\e[0;31mError:\e[0m wrong template \"".$template.'" for datagroup "'.$datagroup->getNameField().'"'.PHP_EOL;
+                $terminalService->printError('wrong template "' . $template . '" for datagroup "' . $datagroup->getNameField() . '"');
                 $result = false;
             endif;
 
             $datagroups->next();
         endwhile;
-
-        echo 'Message: Datagroups templates repaired'.PHP_EOL;
+        $terminalService->printMessage('Datagroups templates repaired');
 
         return $result;
     }

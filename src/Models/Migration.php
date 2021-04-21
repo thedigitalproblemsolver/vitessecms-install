@@ -10,6 +10,11 @@ class Migration extends AbstractCollection {
      */
     public $name;
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function setName(string $name): Migration
     {
         $this->name = $name;
