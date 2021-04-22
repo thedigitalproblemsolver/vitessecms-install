@@ -2,6 +2,8 @@
 
 namespace VitesseCms\Install\Repositories;
 
+use VitesseCms\Block\Repositories\BlockRepository;
+use VitesseCms\Communication\Repositories\NewsletterRepository;
 use VitesseCms\Datagroup\Repositories\DatagroupRepository;
 
 class MigrationCollection implements MigrationCollectionInterface
@@ -16,12 +18,19 @@ class MigrationCollection implements MigrationCollectionInterface
      */
     public $migration;
 
+    /**
+     * @var BlockRepository
+     */
+    public $block;
+
     public function __construct(
         DatagroupRepository $datagroupRepository,
-        MigrationRepository $migrationRepository
+        MigrationRepository $migrationRepository,
+        BlockRepository $blockRepository
     )
     {
         $this->datagroup = $datagroupRepository;
         $this->migration = $migrationRepository;
+        $this->block = $blockRepository;
     }
 }
