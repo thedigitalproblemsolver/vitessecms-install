@@ -57,7 +57,7 @@ class Migration_20210416 implements MigrationInterface
             $blocks->next();
         endwhile;
 
-        $terminalService->printMessage('Block templates repaired');
+        $terminalService->printMessage('Block template repaired');
 
         return $result;
     }
@@ -97,7 +97,7 @@ class Migration_20210416 implements MigrationInterface
 
             $datagroups->next();
         endwhile;
-        $terminalService->printMessage('Datagroups templates repaired');
+        $terminalService->printMessage('Datagroups template repaired');
 
         return $result;
     }
