@@ -33,12 +33,15 @@ class Migration_20210422 implements MigrationInterface
     {
         $result = true;
         $datafields = $migrationCollection->datafield->findAll(null, false);
-        $search = ['VitesseCms\Datafield\Models\\','Modules\Datafield\Models\\'];
-        $replace = ['',''];
+        $search = ['Modules\Datafield\Models\\'];
+        $replace = ['VitesseCms\Datafield\Models\\'];
         while ($datafields->valid()):
             $datafield = $datafields->current();
             $type = str_replace($search,$replace,$datafield->getType());
             if(substr_count($type,'\\') === 0 ):
+                $type = 'VitesseCms\Datafield\Models\\'.$type;
+            endif;
+            if(substr_count($type,'VitesseCms\Datafield\Models') === 1 ):
                 $datafield->setType($type)->save();
             else :
                 $terminalService->printError('srong type "'.str_replace($search,$replace,$datafield->getType()).'" for datafiel '.$datafield->getNameField());
