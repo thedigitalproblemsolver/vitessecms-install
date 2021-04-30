@@ -82,4 +82,15 @@
             <a href="admin/install/seotools/create" class="card-link">Create SeoTools</a>
         </div>
     </div>
+    {{#menuItems}}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+                <p class="card-text">{{text}}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{{link}}" class="card-link">{{link-text}}</a>
+            </div>
+        </div>
+    {{/menuItems}}
 </div>

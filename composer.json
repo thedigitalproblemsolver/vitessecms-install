@@ -25,6 +25,7 @@
     "vitessecms/form": "~0.0.10",
     "vitessecms/datafield": "~0.0.10",
     "vitessecms/datagroup": "~0.0.7",
-    "vitessecms/database": "~0.0.4"
+    "vitessecms/database": "~0.0.4",
+    "ext-json": "*"
   }
 }
