@@ -2,7 +2,6 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockItemlist;
 use VitesseCms\Block\Models\BlockShopCart;
 use VitesseCms\Block\Models\BlockShopCheckoutInformation;
 use VitesseCms\Block\Models\BlockShopCheckoutSummary;
@@ -10,7 +9,8 @@ use VitesseCms\Block\Models\BlockShopPaymentResult;
 use VitesseCms\Block\Models\BlockShopUserOrders;
 use VitesseCms\Block\Models\BlockUserChangePassword;
 use VitesseCms\Block\Models\BlockUserLogin;
-use VitesseCms\Core\Models\Datagroup;
+use VitesseCms\Content\Blocks\Itemlist;
+use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Core\Utils\DirectoryUtil;
 use VitesseCms\Install\AbstractCreatorController;
@@ -859,7 +859,7 @@ class ShopController extends AbstractCreatorController
                 'datagroup' => 'all',
             ],
             'Webshop - afreken stappen' => [
-                'block' => BlockItemlist::class,
+                'block' => Itemlist::class,
                 'template' => 'views/blocks/Itemlist/checkout_steps',
                 'position' => 'maincontent',
                 'datagroup' => (string)$this->checkoutDatagroup->getId(),
