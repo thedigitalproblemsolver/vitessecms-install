@@ -2,7 +2,7 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockMainContent;
+use VitesseCms\Content\Blocks\MainContent;
 use VitesseCms\Install\AbstractCreatorController;
 
 class HomepageController extends AbstractCreatorController
@@ -61,7 +61,7 @@ class HomepageController extends AbstractCreatorController
 
         $blocks = [
             'Bodytext' => [
-                'block' => BlockMainContent::class,
+                'block' => MainContent::class,
                 'template' => 'views/blocks/MainContent/default_full_width',
                 'position' => 'maincontent',
                 'datagroup' => 'all',

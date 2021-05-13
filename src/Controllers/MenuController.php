@@ -2,7 +2,7 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockItemlist;
+use VitesseCms\Content\Blocks\Itemlist;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\MenuForm;
 use VitesseCms\Install\Interfaces\AdminRepositoriesInterface;
@@ -24,7 +24,7 @@ class MenuController extends AbstractCreatorController implements AdminRepositor
     {
         $blocks = [
             'MainMenu' => [
-                'block' => BlockItemlist::class,
+                'block' => Itemlist::class,
                 'template' => 'views/blocks/Itemlist/vertical_menu',
                 'position' => 'menu',
                 'datagroup' => 'all',

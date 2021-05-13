@@ -4,7 +4,7 @@ namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Block\Enum\ItemListEnum;
 use VitesseCms\Block\Models\BlockDatagroup;
-use VitesseCms\Block\Models\BlockItemlist;
+use VitesseCms\Content\Blocks\Itemlist;
 use VitesseCms\Content\Repositories\ItemRepository;
 use VitesseCms\Database\Models\FindValue;
 use VitesseCms\Database\Models\FindValueIterator;
@@ -129,7 +129,7 @@ class TaggingController extends AbstractCreatorController
 
         $blocks = [
             'Tagging - labels of all tags' => [
-                'block' => BlockItemlist::class,
+                'block' => Itemlist::class,
                 'template' => 'views/blocks/Itemlist/badges',
                 'position' => 'right',
                 'datagroup' => $homepageDatagroup,
@@ -140,7 +140,7 @@ class TaggingController extends AbstractCreatorController
                 ],
             ],
             'Tagging - introtext of all tags' => [
-                'block' => BlockItemlist::class,
+                'block' => Itemlist::class,
                 'template' => 'views/blocks/Itemlist/introtext',
                 'position' => 'belowMaincontent',
                 'datagroup' => $tagParentDatagroupId,
@@ -151,7 +151,7 @@ class TaggingController extends AbstractCreatorController
                 ],
             ],
             'Tagging - items of active tag' => [
-                'block' => BlockItemlist::class,
+                'block' => Itemlist::class,
                 'template' => 'views/blocks/Itemlist/introtext',
                 'position' => 'belowMaincontent',
                 'datagroup' => $tagChildDatagroupId,
