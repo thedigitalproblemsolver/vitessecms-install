@@ -2,7 +2,6 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockImage;
 use VitesseCms\Block\Models\BlockLogo;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\LogoForm;
