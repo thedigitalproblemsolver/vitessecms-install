@@ -2,9 +2,9 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockLogo;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\LogoForm;
+use VitesseCms\Media\Blocks\Logo;
 use VitesseCms\Setting\Enum\CallingNameEnum;
 use VitesseCms\Setting\Enum\TypeEnum;
 
@@ -49,13 +49,13 @@ class LogoController extends AbstractCreatorController
 
         $blocks = [
             'Logo core' => [
-                'block' => BlockLogo::class,
+                'block' => Logo::class,
                 'template' => 'views/blocks/Logo/core',
                 'position' => 'logo',
                 'datagroup' => 'all',
             ],
             'Logo mobile' => [
-                'block' => BlockLogo::class,
+                'block' => Logo::class,
                 'template' => 'views/blocks/Logo/mobile',
                 'position' => 'logo',
                 'datagroup' => 'all',
