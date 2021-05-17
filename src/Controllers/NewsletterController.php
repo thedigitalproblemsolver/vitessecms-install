@@ -2,7 +2,6 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockFormBuilder;
 use VitesseCms\Block\Models\BlockNewsletterSubscriptions;
 use VitesseCms\Communication\Factories\NewsletterFactory;
 use VitesseCms\Communication\Factories\NewsletterListFactory;
@@ -11,6 +10,7 @@ use VitesseCms\Communication\Models\Newsletter;
 use VitesseCms\Communication\Models\NewsletterList;
 use VitesseCms\Communication\Models\NewsletterTemplate;
 use VitesseCms\Datagroup\Models\Datagroup;
+use VitesseCms\Form\Blocks\FormBuilder;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Datafield\Models\FieldText;
 use VitesseCms\Install\AbstractCreatorController;
@@ -200,7 +200,7 @@ class NewsletterController extends AbstractCreatorController
     {
         $blocks = [
             'Formulier - inschrijven nieuwsbrief' => [
-                'block' => BlockFormBuilder::class,
+                'block' => FormBuilder::class,
                 'template' => 'views/blocks/FormBuilder/main_content',
                 'position' => 'belowMaincontent',
                 'datagroup' => 'all',
