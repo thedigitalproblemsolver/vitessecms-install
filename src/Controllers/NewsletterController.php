@@ -2,7 +2,7 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockNewsletterSubscriptions;
+use VitesseCms\Communication\Blocks\NewsletterSubscriptions;
 use VitesseCms\Communication\Factories\NewsletterFactory;
 use VitesseCms\Communication\Factories\NewsletterListFactory;
 use VitesseCms\Communication\Factories\NewsletterTemplateFactory;
@@ -222,7 +222,7 @@ class NewsletterController extends AbstractCreatorController
                 ],
             ],
             'Mijn nieuwsbrieven' => [
-                'block' => BlockNewsletterSubscriptions::class,
+                'block' => NewsletterSubscriptions::class,
                 'template' => 'views/blocks/NewsletterSubscriptions/core',
                 'position' => 'myaccount',
                 'datagroup' => [],
