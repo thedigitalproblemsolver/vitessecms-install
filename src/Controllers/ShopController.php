@@ -2,7 +2,6 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockUserLogin;
 use VitesseCms\Content\Blocks\Itemlist;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Setting\Models\Setting;
@@ -26,6 +25,7 @@ use VitesseCms\Shop\Models\Payment;
 use VitesseCms\Shop\Models\Shipping;
 use VitesseCms\Shop\Models\TaxRate;
 use VitesseCms\User\Blocks\UserChangePassword;
+use VitesseCms\User\Blocks\UserLogin;
 use VitesseCms\User\Models\PermissionRole;
 use Phalcon\Di;
 
@@ -844,7 +844,7 @@ class ShopController extends AbstractCreatorController
     {
         $blocks = [
             'In/uitloggen' => [
-                'block' => BlockUserLogin::class,
+                'block' => UserLogin::class,
                 'template' => 'views/blocks/UserLogin/core',
                 'position' => 'topbar',
                 'datagroup' => 'all',
