@@ -2,7 +2,6 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockShopCheckoutSummary;
 use VitesseCms\Block\Models\BlockShopPaymentResult;
 use VitesseCms\Block\Models\BlockShopUserOrders;
 use VitesseCms\Block\Models\BlockUserChangePassword;
@@ -15,6 +14,7 @@ use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Setting\Factory\SettingFactory;
 use VitesseCms\Shop\Blocks\ShopCart;
 use VitesseCms\Shop\Blocks\ShopCheckoutInformation;
+use VitesseCms\Shop\Blocks\ShopCheckoutSummary;
 use VitesseCms\Shop\Enum\OrderStateEnum;
 use VitesseCms\Shop\Factories\CountryFactory;
 use VitesseCms\Shop\Factories\OrderStateFactory;
@@ -882,7 +882,7 @@ class ShopController extends AbstractCreatorController
                 'datagroup' => ['page:' . $this->checkoutPages['pages']['Je gegevens']],
             ],
             'Webshop - checkout summary' => [
-                'block' => BlockShopCheckoutSummary::class,
+                'block' => ShopCheckoutSummary::class,
                 'template' => 'views/blocks/ShopCheckoutSummary/core',
                 'position' => 'maincontent',
                 'datagroup' => ['page:' . $this->checkoutPages['pages']['Overzicht']],
