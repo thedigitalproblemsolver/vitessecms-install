@@ -2,7 +2,6 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockShopCart;
 use VitesseCms\Block\Models\BlockShopCheckoutInformation;
 use VitesseCms\Block\Models\BlockShopCheckoutSummary;
 use VitesseCms\Block\Models\BlockShopPaymentResult;
@@ -15,6 +14,7 @@ use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Core\Utils\DirectoryUtil;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Setting\Factory\SettingFactory;
+use VitesseCms\Shop\Blocks\ShopCart;
 use VitesseCms\Shop\Enum\OrderStateEnum;
 use VitesseCms\Shop\Factories\CountryFactory;
 use VitesseCms\Shop\Factories\OrderStateFactory;
@@ -853,7 +853,7 @@ class ShopController extends AbstractCreatorController
                 ],
             ],
             'Webshop - minicart' => [
-                'block' => BlockShopCart::class,
+                'block' => ShopCart::class,
                 'template' => 'views/blocks/ShopCart/mini',
                 'position' => 'topbar',
                 'datagroup' => 'all',
@@ -870,7 +870,7 @@ class ShopController extends AbstractCreatorController
                 ],
             ],
             'Webshop - checkoutcart' => [
-                'block' => BlockShopCart::class,
+                'block' => ShopCart::class,
                 'template' => 'views/blocks/ShopCart/large',
                 'position' => 'maincontent',
                 'datagroup' => ['page:' . $this->checkoutPages['pages']['Winkelwagen']],
