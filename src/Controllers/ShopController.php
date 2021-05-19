@@ -2,7 +2,6 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockUserChangePassword;
 use VitesseCms\Block\Models\BlockUserLogin;
 use VitesseCms\Content\Blocks\Itemlist;
 use VitesseCms\Datagroup\Models\Datagroup;
@@ -26,6 +25,7 @@ use VitesseCms\Shop\Models\OrderState;
 use VitesseCms\Shop\Models\Payment;
 use VitesseCms\Shop\Models\Shipping;
 use VitesseCms\Shop\Models\TaxRate;
+use VitesseCms\User\Blocks\UserChangePassword;
 use VitesseCms\User\Models\PermissionRole;
 use Phalcon\Di;
 
@@ -900,7 +900,7 @@ class ShopController extends AbstractCreatorController
                 'datagroup' => [],
             ],
             'Wachtwoord aanpassen' => [
-                'block' => BlockUserChangePassword::class,
+                'block' => UserChangePassword::class,
                 'template' => 'views/blocks/UserChangePassword/core',
                 'position' => 'myaccount',
                 'datagroup' => [],
