@@ -2,8 +2,8 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockFilter;
 use VitesseCms\Block\Models\BlockFilterResult;
+use VitesseCms\Content\Blocks\Filter;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Install\AbstractCreatorController;
 
@@ -50,7 +50,7 @@ class FilterController extends AbstractCreatorController
          */
         $blocks = [
             'Filter' => [
-                'block' => BlockFilter::class,
+                'block' => Filter::class,
                 'template' => '../../../../../views/blocks/Filter/core',
                 'blockSettings' => [
                     'class' => 'container-filter',
