@@ -2,8 +2,6 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockAffiliateInitialize;
-use VitesseCms\Block\Models\BlockAffiliateOrderOverview;
 use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Install\Repositories\AdminRepositoriesInterface;
@@ -11,6 +9,8 @@ use VitesseCms\Setting\Factory\SettingFactory;
 use VitesseCms\Datafield\Models\FieldModel;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\AffiliateForm;
+use VitesseCms\Shop\Blocks\AffiliateInitialize;
+use VitesseCms\Shop\Blocks\AffiliateOrderOverview;
 use VitesseCms\User\Models\User;
 
 class AffiliateController extends AbstractCreatorController implements AdminRepositoriesInterface
@@ -91,13 +91,13 @@ class AffiliateController extends AbstractCreatorController implements AdminRepo
     {
         $blocks = [
             'Mijn wederverkopen' => [
-                'block' => BlockAffiliateOrderOverview::class,
+                'block' => AffiliateOrderOverview::class,
                 'template' => 'views/blocks/AffiliateOrderOverview/core',
                 'position' => 'myaccount',
                 'datagroup' => [],
             ],
             'Affiliate initializer' => [
-                'block' => BlockAffiliateInitialize::class,
+                'block' => AffiliateInitialize::class,
                 'template' => 'views/blocks/AffiliateInitialize/core',
                 'position' => 'footer',
                 'datagroup' => [(string)$datagroup->getId()],

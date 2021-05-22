@@ -2,19 +2,17 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockShopCart;
-use VitesseCms\Block\Models\BlockShopCheckoutInformation;
-use VitesseCms\Block\Models\BlockShopCheckoutSummary;
-use VitesseCms\Block\Models\BlockShopPaymentResult;
-use VitesseCms\Block\Models\BlockShopUserOrders;
-use VitesseCms\Block\Models\BlockUserChangePassword;
-use VitesseCms\Block\Models\BlockUserLogin;
 use VitesseCms\Content\Blocks\Itemlist;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Core\Utils\DirectoryUtil;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Setting\Factory\SettingFactory;
+use VitesseCms\Shop\Blocks\ShopCart;
+use VitesseCms\Shop\Blocks\ShopCheckoutInformation;
+use VitesseCms\Shop\Blocks\ShopCheckoutSummary;
+use VitesseCms\Shop\Blocks\ShopPaymentResult;
+use VitesseCms\Shop\Blocks\ShopUserOrders;
 use VitesseCms\Shop\Enum\OrderStateEnum;
 use VitesseCms\Shop\Factories\CountryFactory;
 use VitesseCms\Shop\Factories\OrderStateFactory;
@@ -26,6 +24,8 @@ use VitesseCms\Shop\Models\OrderState;
 use VitesseCms\Shop\Models\Payment;
 use VitesseCms\Shop\Models\Shipping;
 use VitesseCms\Shop\Models\TaxRate;
+use VitesseCms\User\Blocks\UserChangePassword;
+use VitesseCms\User\Blocks\UserLogin;
 use VitesseCms\User\Models\PermissionRole;
 use Phalcon\Di;
 
@@ -844,7 +844,7 @@ class ShopController extends AbstractCreatorController
     {
         $blocks = [
             'In/uitloggen' => [
-                'block' => BlockUserLogin::class,
+                'block' => UserLogin::class,
                 'template' => 'views/blocks/UserLogin/core',
                 'position' => 'topbar',
                 'datagroup' => 'all',
@@ -853,7 +853,7 @@ class ShopController extends AbstractCreatorController
                 ],
             ],
             'Webshop - minicart' => [
-                'block' => BlockShopCart::class,
+                'block' => ShopCart::class,
                 'template' => 'views/blocks/ShopCart/mini',
                 'position' => 'topbar',
                 'datagroup' => 'all',
@@ -870,37 +870,37 @@ class ShopController extends AbstractCreatorController
                 ],
             ],
             'Webshop - checkoutcart' => [
-                'block' => BlockShopCart::class,
+                'block' => ShopCart::class,
                 'template' => 'views/blocks/ShopCart/large',
                 'position' => 'maincontent',
                 'datagroup' => ['page:' . $this->checkoutPages['pages']['Winkelwagen']],
             ],
             'Webshop - checkout information' => [
-                'block' => BlockShopCheckoutInformation::class,
+                'block' => ShopCheckoutInformation::class,
                 'template' => 'views/blocks/ShopCheckoutInformation/core',
                 'position' => 'maincontent',
                 'datagroup' => ['page:' . $this->checkoutPages['pages']['Je gegevens']],
             ],
             'Webshop - checkout summary' => [
-                'block' => BlockShopCheckoutSummary::class,
+                'block' => ShopCheckoutSummary::class,
                 'template' => 'views/blocks/ShopCheckoutSummary/core',
                 'position' => 'maincontent',
                 'datagroup' => ['page:' . $this->checkoutPages['pages']['Overzicht']],
             ],
             'Webshop - payment result' => [
-                'block' => BlockShopPaymentResult::class,
+                'block' => ShopPaymentResult::class,
                 'template' => 'views/blocks/ShopPaymentResult/core',
                 'position' => 'maincontent',
                 'datagroup' => ['page:' . $this->checkoutPages['pages']['Bedankt']],
             ],
             'Mijn bestellingen' => [
-                'block' => BlockShopUserOrders::class,
+                'block' => ShopUserOrders::class,
                 'template' => 'views/blocks/ShopUserOrders/core',
                 'position' => 'myaccount',
                 'datagroup' => [],
             ],
             'Wachtwoord aanpassen' => [
-                'block' => BlockUserChangePassword::class,
+                'block' => UserChangePassword::class,
                 'template' => 'views/blocks/UserChangePassword/core',
                 'position' => 'myaccount',
                 'datagroup' => [],
