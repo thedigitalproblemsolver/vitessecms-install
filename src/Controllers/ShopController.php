@@ -23,6 +23,7 @@ use VitesseCms\Shop\Factories\PaymentFactory;
 use VitesseCms\Shop\Factories\ShippingFactory;
 use VitesseCms\Shop\Factories\TaxrateFactory;
 use VitesseCms\Shop\Fields\ShopAddToCart;
+use VitesseCms\Shop\Fields\ShopPrice;
 use VitesseCms\Shop\Models\Country;
 use VitesseCms\Shop\Models\OrderState;
 use VitesseCms\Shop\Models\Payment;
@@ -211,7 +212,7 @@ class ShopController extends AbstractCreatorController
             ],
             'Prijs' => [
                 'calling_name' => 'price',
-                'type' => 'FieldPrice',
+                'type' => ShopPrice::class,
                 'datafieldSettings' => [],
             ],
             'Belasting' => [
