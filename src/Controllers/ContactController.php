@@ -3,6 +3,7 @@
 namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Content\Fields\Text;
+use VitesseCms\Content\Fields\TextArea;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Form\Blocks\FormBuilder;
 use VitesseCms\Setting\Models\Setting;
@@ -95,7 +96,7 @@ class ContactController extends AbstractCreatorController
             ],
             'Bericht' => [
                 'calling_name' => 'message',
-                'type' => 'FieldTextarea',
+                'type' => TextArea::class,
                 'required' => true,
             ],
         ];
