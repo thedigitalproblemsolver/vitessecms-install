@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Install\Controllers;
 
+use VitesseCms\Content\Fields\Text;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Form\Blocks\FormBuilder;
 use VitesseCms\Setting\Models\Setting;
@@ -78,7 +79,7 @@ class ContactController extends AbstractCreatorController
         $fields = [
             'Uw naam' => [
                 'calling_name' => 'fullName',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => [
                     'inputType' => 'text',
                 ],
@@ -86,7 +87,7 @@ class ContactController extends AbstractCreatorController
             ],
             'E-mail' => [
                 'calling_name' => 'email',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => [
                     'inputType' => 'email',
                 ],

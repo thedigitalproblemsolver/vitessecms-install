@@ -4,6 +4,7 @@ namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Content\Blocks\Itemlist;
 use VitesseCms\Content\Fields\Model;
+use VitesseCms\Content\Fields\Text;
 use VitesseCms\Content\Fields\Toggle;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Media\Fields\Image;
@@ -141,7 +142,7 @@ class ShopController extends AbstractCreatorController
         $fields = [
             'Item naam' => [
                 'calling_name' => 'name',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
@@ -181,7 +182,7 @@ class ShopController extends AbstractCreatorController
         $fields = [
             'Item naam' => [
                 'calling_name' => 'name',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
@@ -224,7 +225,7 @@ class ShopController extends AbstractCreatorController
             ],
             'Voorraad' => [
                 'calling_name' => 'stock',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => [
                     'inputType' => 'number',
                 ],
@@ -497,7 +498,7 @@ class ShopController extends AbstractCreatorController
         $fields = [
             'Item naam' => [
                 'calling_name' => 'name',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
@@ -544,7 +545,7 @@ class ShopController extends AbstractCreatorController
         $fields = [
             'Item naam' => [
                 'calling_name' => 'name',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
@@ -603,65 +604,65 @@ class ShopController extends AbstractCreatorController
         $fields = [
             'Voornaam' => [
                 'calling_name' => 'firstName',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'Tussenvoegsel' => [
                 'calling_name' => 'middleName',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
             'Achternaam' => [
                 'calling_name' => 'lastName',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'E-mail' => [
                 'calling_name' => 'email',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'email'],
                 'required' => true,
             ],
             'Wachtwoord' => [
                 'calling_name' => 'password',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'password'],
                 'required' => true,
             ],
             'Bevestig wachwoord' => [
                 'calling_name' => 'password2',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'password'],
                 'required' => true,
             ],
             'Bedrijfsnaam' => [
                 'calling_name' => 'company',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
             'Straat' => [
                 'calling_name' => 'street',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'Huisnummer' => [
                 'calling_name' => 'houseNumber',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'Postcode' => [
                 'calling_name' => 'zipCode',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'Woonplaats' => [
                 'calling_name' => 'city',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
@@ -673,13 +674,13 @@ class ShopController extends AbstractCreatorController
             ],
             'Telefoon' => [
                 'calling_name' => 'phoneNumber',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'tel'],
                 'required' => true,
             ],
             'Waar ken je ons van?' => [
                 'calling_name' => 'refferer',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
             'Ik ga akkoord met de Leveringsvoorwaarden' => [
@@ -714,12 +715,12 @@ class ShopController extends AbstractCreatorController
         $fields = [
             'Bedrijfsnaam' => [
                 'calling_name' => 'companyName',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
             'Waar ken je ons van?' => [
                 'calling_name' => 'refferer',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
             'Ik ga akkoord met de Leveringsvoorwaarden' => [
@@ -758,65 +759,65 @@ class ShopController extends AbstractCreatorController
         $fields = [
             'Voornaam' => [
                 'calling_name' => 'firstName',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'Tussenvoegsel' => [
                 'calling_name' => 'middleName',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
             'Achternaam' => [
                 'calling_name' => 'lastName',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'Bedrijfsnaam' => [
                 'calling_name' => 'companyName',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
             ],
             'Straat' => [
                 'calling_name' => 'street',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'Huisnummer' => [
                 'calling_name' => 'houseNumber',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'Postcode' => [
                 'calling_name' => 'zipCode',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'Woonplaats' => [
                 'calling_name' => 'city',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'Land' => [
                 'calling_name' => 'country',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'Telefoon' => [
                 'calling_name' => 'phoneNumber',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'text'],
                 'required' => true,
             ],
             'UserId' => [
                 'calling_name' => 'userId',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => ['inputType' => 'hidden'],
             ],
         ];

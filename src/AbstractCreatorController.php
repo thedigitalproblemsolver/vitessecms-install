@@ -8,6 +8,7 @@ use VitesseCms\Communication\Factories\EmailFactory;
 use VitesseCms\Communication\Models\Email;
 use VitesseCms\Content\Controllers\AdminitemController;
 use VitesseCms\Content\Factories\ItemFactory;
+use VitesseCms\Content\Fields\Text;
 use VitesseCms\Core\AbstractController;
 use VitesseCms\Block\Models\Block;
 use VitesseCms\Datafield\Models\Datafield;
@@ -23,7 +24,8 @@ use VitesseCms\User\Enums\UserRoleEnum;
 use VitesseCms\User\Factories\PermissionRoleFactory;
 use VitesseCms\User\Models\PermissionRole;
 use VitesseCms\User\Utils\PermissionUtils;
-use \stdClass;
+use stdClass;
+use function count;
 
 abstract class AbstractCreatorController extends AbstractController implements AdminRepositoriesInterface
 {
@@ -196,7 +198,7 @@ abstract class AbstractCreatorController extends AbstractController implements A
         $fields = [
             'Item naam' => [
                 'calling_name' => 'name',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
@@ -392,7 +394,7 @@ abstract class AbstractCreatorController extends AbstractController implements A
             Setting::setFindValue('calling_name', $settingKey);
             Setting::setFindPublished(false);
             $settingItems = Setting::findAll();
-            if (\count($settingItems) === 0) :
+            if (count($settingItems) === 0) :
                 $setting = SettingFactory::create(
                     $settingKey,
                     isset($params['type']) ? $params['type'] : 'SettingText',
