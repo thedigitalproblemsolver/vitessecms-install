@@ -4,6 +4,7 @@ namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Content\Blocks\MainContent;
 use VitesseCms\Content\Fields\Text;
+use VitesseCms\Content\Fields\TextEditor;
 use VitesseCms\Content\Fields\Toggle;
 use VitesseCms\Install\AbstractCreatorController;
 
@@ -23,7 +24,7 @@ class HomepageController extends AbstractCreatorController
             ],
             'Bodytext' => [
                 'calling_name' => 'bodytext',
-                'type' => 'FieldTexteditor',
+                'type' => TextEditor::class,
                 'datafieldSettings' => [
                     'multilang' => true,
                 ],

@@ -9,6 +9,7 @@ use VitesseCms\Communication\Models\Email;
 use VitesseCms\Content\Controllers\AdminitemController;
 use VitesseCms\Content\Factories\ItemFactory;
 use VitesseCms\Content\Fields\Text;
+use VitesseCms\Content\Fields\TextEditor;
 use VitesseCms\Core\AbstractController;
 use VitesseCms\Block\Models\Block;
 use VitesseCms\Datafield\Models\Datafield;
@@ -208,14 +209,14 @@ abstract class AbstractCreatorController extends AbstractController implements A
             ],
             'Introtext' => [
                 'calling_name' => 'introtext',
-                'type' => 'FieldTexteditor',
+                'type' => TextEditor::class,
                 'datafieldSettings' => [
                     'multilang' => true,
                 ],
             ],
             'Bodytext' => [
                 'calling_name' => 'bodytext',
-                'type' => 'FieldTexteditor',
+                'type' => TextEditor::class,
                 'datafieldSettings' => [
                     'multilang' => true,
                 ],

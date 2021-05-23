@@ -5,6 +5,7 @@ namespace VitesseCms\Install\Controllers;
 use VitesseCms\Content\Blocks\Itemlist;
 use VitesseCms\Content\Fields\Model;
 use VitesseCms\Content\Fields\Text;
+use VitesseCms\Content\Fields\TextEditor;
 use VitesseCms\Content\Fields\Toggle;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Media\Fields\Image;
@@ -192,14 +193,14 @@ class ShopController extends AbstractCreatorController
             ],
             'Introtext' => [
                 'calling_name' => 'introtext',
-                'type' => 'FieldTexteditor',
+                'type' => TextEditor::class,
                 'datafieldSettings' => [
                     'multilang' => true,
                 ],
             ],
             'Bodytext' => [
                 'calling_name' => 'bodytext',
-                'type' => 'FieldTexteditor',
+                'type' => TextEditor::class,
                 'datafieldSettings' => [
                     'multilang' => true,
                 ],
