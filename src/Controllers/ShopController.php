@@ -3,6 +3,7 @@
 namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Content\Blocks\Itemlist;
+use VitesseCms\Content\Fields\Toggle;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Core\Utils\DirectoryUtil;
@@ -19,6 +20,7 @@ use VitesseCms\Shop\Factories\OrderStateFactory;
 use VitesseCms\Shop\Factories\PaymentFactory;
 use VitesseCms\Shop\Factories\ShippingFactory;
 use VitesseCms\Shop\Factories\TaxrateFactory;
+use VitesseCms\Shop\Fields\ShopAddToCart;
 use VitesseCms\Shop\Models\Country;
 use VitesseCms\Shop\Models\OrderState;
 use VitesseCms\Shop\Models\Payment;
@@ -226,12 +228,12 @@ class ShopController extends AbstractCreatorController
             ],
             'Uit voorraad' => [
                 'calling_name' => 'outOfStock',
-                'type' => 'FieldCheckbox',
+                'type' => Toggle::class,
                 'datafieldSettings' => [],
             ],
             'Winkelwagen knop' => [
                 'calling_name' => 'addtocart',
-                'type' => 'FieldAddtocart',
+                'type' => ShopAddToCart::class,
                 'datafieldSettings' => [],
             ],
         ];
@@ -679,7 +681,7 @@ class ShopController extends AbstractCreatorController
             ],
             'Ik ga akkoord met de Leveringsvoorwaarden' => [
                 'calling_name' => 'agreedTerms',
-                'type' => 'FieldCheckbox',
+                'type' => Toggle::class,
                 'required' => true,
             ],
         ];
@@ -719,7 +721,7 @@ class ShopController extends AbstractCreatorController
             ],
             'Ik ga akkoord met de Leveringsvoorwaarden' => [
                 'calling_name' => 'agreedTerms',
-                'type' => 'FieldCheckbox',
+                'type' => Toggle::class,
                 'required' => true,
             ],
         ];

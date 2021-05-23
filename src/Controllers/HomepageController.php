@@ -3,6 +3,7 @@
 namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Content\Blocks\MainContent;
+use VitesseCms\Content\Fields\Toggle;
 use VitesseCms\Install\AbstractCreatorController;
 
 class HomepageController extends AbstractCreatorController
@@ -28,7 +29,7 @@ class HomepageController extends AbstractCreatorController
             ],
             'Is Homepage' => [
                 'calling_name' => 'homepage',
-                'type' => 'FieldCheckbox',
+                'type' => Toggle::class,
                 'required' => true,
             ],
         ];
