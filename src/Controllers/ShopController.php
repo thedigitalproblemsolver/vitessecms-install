@@ -3,6 +3,7 @@
 namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Content\Blocks\Itemlist;
+use VitesseCms\Content\Fields\Model;
 use VitesseCms\Content\Fields\Toggle;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Media\Fields\Image;
@@ -215,7 +216,7 @@ class ShopController extends AbstractCreatorController
             ],
             'Belasting' => [
                 'calling_name' => 'taxrate',
-                'type' => 'FieldModel',
+                'type' => Model::class,
                 'datafieldSettings' => [
                     'model' => TaxRate::class,
                 ],
@@ -665,7 +666,7 @@ class ShopController extends AbstractCreatorController
             ],
             'Land' => [
                 'calling_name' => 'country',
-                'type' => 'FieldModel',
+                'type' => Model::class,
                 'datafieldSettings' => ['model' => Country::class],
                 'required' => true,
             ],

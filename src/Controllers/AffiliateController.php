@@ -2,11 +2,11 @@
 
 namespace VitesseCms\Install\Controllers;
 
+use VitesseCms\Content\Fields\Model;
 use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Install\Repositories\AdminRepositoriesInterface;
 use VitesseCms\Setting\Factory\SettingFactory;
-use VitesseCms\Datafield\Models\FieldModel;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\AffiliateForm;
 use VitesseCms\Shop\Blocks\AffiliateInitialize;
@@ -63,7 +63,7 @@ class AffiliateController extends AbstractCreatorController implements AdminRepo
         $fields = [
             'Affiliate gebruiker' => [
                 'calling_name' => 'affiliateUser',
-                'type' => FieldModel::class,
+                'type' => Model::class,
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'useSelect2' => true,
