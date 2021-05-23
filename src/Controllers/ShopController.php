@@ -5,6 +5,7 @@ namespace VitesseCms\Install\Controllers;
 use VitesseCms\Content\Blocks\Itemlist;
 use VitesseCms\Content\Fields\Toggle;
 use VitesseCms\Datagroup\Models\Datagroup;
+use VitesseCms\Media\Fields\Image;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Core\Utils\DirectoryUtil;
 use VitesseCms\Install\AbstractCreatorController;
@@ -148,7 +149,7 @@ class ShopController extends AbstractCreatorController
             ],
             'Afbeelding' => [
                 'calling_name' => 'image',
-                'type' => 'FieldImage',
+                'type' => Image::class,
                 'datafieldSettings' => [
                     'allowedFiletypeGroups' => ['rasterizedImages'],
                 ],
@@ -202,7 +203,7 @@ class ShopController extends AbstractCreatorController
             ],
             'Afbeelding' => [
                 'calling_name' => 'image',
-                'type' => 'FieldImage',
+                'type' => Image::class,
                 'datafieldSettings' => [
                     'allowedFiletypeGroups' => ['rasterizedImages'],
                 ],
