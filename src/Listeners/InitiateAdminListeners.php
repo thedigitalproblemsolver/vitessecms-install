@@ -3,10 +3,8 @@
 namespace VitesseCms\Install\Listeners;
 
 use VitesseCms\Content\Controllers\AdminitemController;
-use VitesseCms\Content\Listeners\AdminItemControllerListener;
-use VitesseCms\Content\Listeners\ModelItemListener;
-use VitesseCms\Content\Models\Item;
 use Phalcon\Events\Manager;
+use VitesseCms\Content\Listeners\Controllers\AdminItemControllerListener;
 
 class InitiateAdminListeners
 {
