@@ -9,6 +9,7 @@ use VitesseCms\Communication\Factories\NewsletterTemplateFactory;
 use VitesseCms\Communication\Models\Newsletter;
 use VitesseCms\Communication\Models\NewsletterList;
 use VitesseCms\Communication\Models\NewsletterTemplate;
+use VitesseCms\Content\Fields\Text;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Form\Blocks\FormBuilder;
 use VitesseCms\Setting\Models\Setting;
@@ -165,7 +166,7 @@ class NewsletterController extends AbstractCreatorController
         $fields = [
             'E-mail' => [
                 'calling_name' => 'email',
-                'type' => FieldText::class,
+                'type' => Text::class,
                 'datafieldSettings' => [
                     'inputType' => 'email',
                 ],
@@ -173,7 +174,7 @@ class NewsletterController extends AbstractCreatorController
             ],
             'Nieuwsbrief lijst' => [
                 'calling_name' => 'newsletterList',
-                'type' => FieldText::class,
+                'type' => Text::class,
                 'datafieldSettings' => [
                     'inputType' => 'hidden',
                     'multilang' => true,

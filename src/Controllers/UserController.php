@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Install\Controllers;
 
+use VitesseCms\Content\Fields\Model;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Setting\Factory\SettingFactory;
@@ -62,7 +63,7 @@ class UserController extends AbstractCreatorController
             ],
             'Land' => [
                 'calling_name' => 'country',
-                'type' => 'FieldModel',
+                'type' => Model::class,
                 'datafieldSettings' => ['model' => Country::class],
                 'required' => true,
             ],
