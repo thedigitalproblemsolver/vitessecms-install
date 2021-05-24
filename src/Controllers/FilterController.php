@@ -2,7 +2,6 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Models\BlockFilterResult;
 use VitesseCms\Content\Blocks\Filter;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Install\AbstractCreatorController;
