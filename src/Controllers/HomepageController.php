@@ -3,6 +3,9 @@
 namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Content\Blocks\MainContent;
+use VitesseCms\Content\Fields\Text;
+use VitesseCms\Content\Fields\TextEditor;
+use VitesseCms\Content\Fields\Toggle;
 use VitesseCms\Install\AbstractCreatorController;
 
 class HomepageController extends AbstractCreatorController
@@ -12,7 +15,7 @@ class HomepageController extends AbstractCreatorController
         $fields = [
             'Item naam' => [
                 'calling_name' => 'name',
-                'type' => 'FieldText',
+                'type' => Text::class,
                 'datafieldSettings' => [
                     'inputType' => 'text',
                     'multilang' => true,
@@ -21,14 +24,14 @@ class HomepageController extends AbstractCreatorController
             ],
             'Bodytext' => [
                 'calling_name' => 'bodytext',
-                'type' => 'FieldTexteditor',
+                'type' => TextEditor::class,
                 'datafieldSettings' => [
                     'multilang' => true,
                 ],
             ],
             'Is Homepage' => [
                 'calling_name' => 'homepage',
-                'type' => 'FieldCheckbox',
+                'type' => Toggle::class,
                 'required' => true,
             ],
         ];
