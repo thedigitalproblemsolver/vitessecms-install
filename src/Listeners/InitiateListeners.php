@@ -2,12 +2,16 @@
 
 namespace VitesseCms\Install\Listeners;
 
-use Phalcon\Events\Manager;
+use VitesseCms\Core\Interfaces\InitiateListenersInterface;
+use VitesseCms\Core\Interfaces\InjectableInterface;
+use VitesseCms\Install\Listeners\Admin\AdminMenuListener;
 
-class InitiateListeners
+class InitiateListeners implements InitiateListenersInterface
 {
-    public static function setListeners(Manager $eventsManager): void
+    public static function setListeners(InjectableInterface $di): void
     {
-        $eventsManager->attach('adminMenu', new AdminMenuListener());
+        if($di->user->hasAdminAccess()) :
+            $di->eventsManager->attach('adminMenu', new AdminMenuListener());
+        endif;
     }
 }
