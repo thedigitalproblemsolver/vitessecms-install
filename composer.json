@@ -19,9 +19,9 @@
   },
   "require": {
     "vitessecms/core": "~0.2.6",
-    "vitessecms/language": "~0.2.1",
-    "vitessecms/setting": "~0.2.1",
-    "vitessecms/user": "~0.2.2",
+    "vitessecms/language": "~0.2.2",
+    "vitessecms/setting": "~0.2.2",
+    "vitessecms/user": "~0.2.3",
     "vitessecms/form": "~0.2.5",
     "vitessecms/datafield": "~0.2.10",
     "vitessecms/datagroup": "~0.2.7",
