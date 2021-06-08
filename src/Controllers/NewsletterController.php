@@ -13,7 +13,6 @@ use VitesseCms\Content\Fields\Text;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Form\Blocks\FormBuilder;
 use VitesseCms\Setting\Models\Setting;
-use VitesseCms\Datafield\Models\FieldText;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\ContactForm;
 use VitesseCms\Language\Models\Language;
