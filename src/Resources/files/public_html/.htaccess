@@ -41,6 +41,10 @@ Header append Vary User-Agent env=!dont-vary
     RewriteEngine On
     RewriteRule ^sitemap\.xml$ /export/sitemap/index/ [R=301,L]
 
+    ## redirect ads.txt to internal controller
+    RewriteEngine On
+    RewriteRule ^ads\.txt$ /google/adstxt/index/ [R=301,L]
+
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php?_url=/$1 [QSA,L]
