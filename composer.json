@@ -18,7 +18,7 @@
     }
   },
   "require": {
-    "vitessecms/core": "~0.2.13",
+    "vitessecms/core": "~0.2.14",
     "vitessecms/language": "~0.2.3",
     "vitessecms/setting": "~0.2.5",
     "vitessecms/user": "~0.2.4",
@@ -26,9 +26,9 @@
     "vitessecms/datafield": "~0.2.12",
     "vitessecms/datagroup": "~0.2.10",
     "vitessecms/database": "~0.2.4",
-    "vitessecms/content": "~0.2.12",
+    "vitessecms/content": "~0.2.13",
     "ext-json": "*",
-    "vitessecms/block": "~0.2.13",
+    "vitessecms/block": "~0.2.14",
     "vitessecms/communication": "~0.2.11"
   }
 }
