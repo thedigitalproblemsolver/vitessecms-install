@@ -34,7 +34,6 @@ use VitesseCms\Shop\Models\TaxRate;
 use VitesseCms\User\Blocks\UserChangePassword;
 use VitesseCms\User\Blocks\UserLogin;
 use VitesseCms\User\Models\PermissionRole;
-use Phalcon\Di;
 
 class ShopController extends AbstractCreatorController
 {
@@ -76,8 +75,8 @@ class ShopController extends AbstractCreatorController
     public function createAction()
     {
         DirectoryUtil::copy(
-            Di::getDefault()->get('config')->get('defaultTemplateDir') . 'samples/images',
-            Di::getDefault()->get('config')->get('uploadDir')
+            $this->configuration->getCoreTemplateDir() . 'samples/images',
+            $this->configuration->getUploadDir()
         );
 
         $this->createShopRoles();
