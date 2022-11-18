@@ -8,7 +8,7 @@ use VitesseCms\Core\AbstractModule;
 use VitesseCms\Datafield\Repositories\DatafieldRepository;
 use VitesseCms\Datagroup\Repositories\DatagroupRepository;
 use VitesseCms\Install\Repositories\AdminRepositoryCollection;
-use Phalcon\DiInterface;
+use Phalcon\Di\DiInterface;
 use VitesseCms\Install\Repositories\RepositoryCollection;
 use VitesseCms\Language\Repositories\LanguageRepository;
 use VitesseCms\User\Repositories\PermissionRoleRepository;
