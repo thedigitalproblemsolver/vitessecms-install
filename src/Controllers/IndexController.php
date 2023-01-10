@@ -9,7 +9,7 @@ use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\newPropertyForm;
 use VitesseCms\Install\Repositories\RepositoriesInterface;
 use VitesseCms\Language\Factories\LanguageFactory;
-use VitesseCms\User\Enums\UserRoleEnum;
+use VitesseCms\User\Enum\UserRoleEnum;
 use VitesseCms\User\Factories\UserFactory;
 
 class IndexController extends AbstractCreatorController implements RepositoriesInterface
@@ -46,7 +46,7 @@ class IndexController extends AbstractCreatorController implements RepositoriesI
             UserFactory::create(
                 $post['email'],
                 $post['password'],
-                (string) $this->repositories->permissionRole->findFirst(new FindValueIterator(
+                (string)$this->repositories->permissionRole->findFirst(new FindValueIterator(
                     [new FindValue('calling_name', UserRoleEnum::SUPER_ADMIN)]
                 ))->getId(),
                 true
