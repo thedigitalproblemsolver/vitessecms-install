@@ -2,8 +2,10 @@
 
 namespace VitesseCms\Install;
 
+use stdClass;
 use VitesseCms\Block\Factories\BlockFactory;
 use VitesseCms\Block\Factories\BlockPositionFactory;
+use VitesseCms\Block\Models\Block;
 use VitesseCms\Communication\Factories\EmailFactory;
 use VitesseCms\Communication\Models\Email;
 use VitesseCms\Content\Controllers\AdminitemController;
@@ -11,21 +13,19 @@ use VitesseCms\Content\Factories\ItemFactory;
 use VitesseCms\Content\Fields\Text;
 use VitesseCms\Content\Fields\TextEditor;
 use VitesseCms\Core\AbstractController;
-use VitesseCms\Block\Models\Block;
+use VitesseCms\Database\Models\FindValue;
+use VitesseCms\Database\Models\FindValueIterator;
+use VitesseCms\Datafield\Factories\DatafieldFactory;
 use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Datagroup\Factories\DatagroupFactory;
 use VitesseCms\Datagroup\Models\Datagroup;
-use VitesseCms\Database\Models\FindValue;
-use VitesseCms\Database\Models\FindValueIterator;
 use VitesseCms\Install\Interfaces\AdminRepositoriesInterface;
-use VitesseCms\Setting\Models\Setting;
-use VitesseCms\Datafield\Factories\DatafieldFactory;
 use VitesseCms\Setting\Factory\SettingFactory;
-use VitesseCms\User\Enums\UserRoleEnum;
+use VitesseCms\Setting\Models\Setting;
+use VitesseCms\User\Enum\UserRoleEnum;
 use VitesseCms\User\Factories\PermissionRoleFactory;
 use VitesseCms\User\Models\PermissionRole;
 use VitesseCms\User\Utils\PermissionUtils;
-use stdClass;
 use function count;
 
 abstract class AbstractCreatorController extends AbstractController implements AdminRepositoriesInterface
@@ -98,11 +98,11 @@ abstract class AbstractCreatorController extends AbstractController implements A
     }
 
     protected function createItems(
-        array $pages,
-        string $titleField,
+        array     $pages,
+        string    $titleField,
         Datagroup $datagroup,
-        string $parentId = null,
-        int $startOrder = 0
+        string    $parentId = null,
+        int       $startOrder = 0
     ): array
     {
         $adminitemController = new AdminitemController();
@@ -132,7 +132,7 @@ abstract class AbstractCreatorController extends AbstractController implements A
                     $parentId,
                     $startOrder
                 );
-                $this->eventsManager->fire(AdminitemController::class . ':beforeModelSave', $adminitemController,$item);
+                $this->eventsManager->fire(AdminitemController::class . ':beforeModelSave', $adminitemController, $item);
                 $item->save();
             endif;
             $return['pages'][$title] = (string)$item->getId();
@@ -144,9 +144,9 @@ abstract class AbstractCreatorController extends AbstractController implements A
     }
 
     protected function createBlocks(
-        array $blocks,
+        array  $blocks,
         string $titleField,
-        int $order = 10
+        int    $order = 10
     ): array
     {
         $return = [
@@ -239,9 +239,9 @@ abstract class AbstractCreatorController extends AbstractController implements A
     }
 
     protected function createDatafields(
-        array $fields,
+        array  $fields,
         string $titleField,
-        int $order = 10
+        int    $order = 10
     ): array
     {
         $return = [];
@@ -287,8 +287,8 @@ abstract class AbstractCreatorController extends AbstractController implements A
         string $titleField,
         string $template,
         string $component,
-        array $datafields = [],
-        bool $includeInSitemap = false,
+        array  $datafields = [],
+        bool   $includeInSitemap = false,
         string $parentId = null,
         string $itemOrdering = ''
     ): Datagroup
@@ -350,7 +350,7 @@ abstract class AbstractCreatorController extends AbstractController implements A
     }
 
     protected function createSystemEmails(
-        array $emails,
+        array  $emails,
         string $subjectField
     ): array
     {
