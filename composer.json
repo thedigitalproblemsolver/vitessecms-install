@@ -18,17 +18,17 @@
     }
   },
   "require": {
-    "vitessecms/core": "~0.4.1",
-    "vitessecms/language": "~0.3.3",
+    "vitessecms/core": "~0.4.2",
+    "vitessecms/language": "~0.3.4",
     "vitessecms/setting": "~0.3.1",
-    "vitessecms/user": "~0.4.0",
-    "vitessecms/form": "~0.4.0",
+    "vitessecms/user": "~0.4.1",
+    "vitessecms/form": "~0.4.1",
     "vitessecms/datafield": "~0.3.1",
-    "vitessecms/datagroup": "~0.3.1",
+    "vitessecms/datagroup": "~0.4.0",
     "vitessecms/database": "~0.3.4",
     "vitessecms/content": "~0.4.0",
     "ext-json": "*",
-    "vitessecms/block": "~0.4.0",
+    "vitessecms/block": "~0.4.1",
     "vitessecms/communication": "~0.3.0"
   }
 }
