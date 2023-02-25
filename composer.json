@@ -28,7 +28,7 @@
     "vitessecms/database": "~0.3.4",
     "vitessecms/content": "~0.4.4",
     "ext-json": "*",
-    "vitessecms/block": "~0.4.3",
+    "vitessecms/block": "~0.4.4",
     "vitessecms/communication": "~0.4.1"
   }
 }
