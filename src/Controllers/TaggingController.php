@@ -2,7 +2,6 @@
 
 namespace VitesseCms\Install\Controllers;
 
-use VitesseCms\Block\Enum\ItemListEnum;
 use VitesseCms\Block\Models\BlockDatagroup;
 use VitesseCms\Content\Blocks\Itemlist;
 use VitesseCms\Content\Repositories\ItemRepository;
@@ -118,7 +117,7 @@ class TaggingController extends AbstractCreatorController
     protected function createTaggingBlocks(
         string $homepageDatagroup,
         string $contentDatagroupId,
-        array $taggingItems,
+        array  $taggingItems,
         string $tagParentDatagroupId,
         string $tagChildDatagroupId
     ): void
@@ -165,7 +164,7 @@ class TaggingController extends AbstractCreatorController
                     'items' => ['value' => [$contentDatagroupId]],
                     'datafieldValue' => [
                         'value' => [
-                            'tags' => ItemListEnum::OPTION_CURRENT_ITEM,
+                            'tags' => '{{currentId}}',
                         ],
                     ],
                 ],
