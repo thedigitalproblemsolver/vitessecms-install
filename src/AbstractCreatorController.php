@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Install;
 
@@ -9,6 +11,7 @@ use VitesseCms\Block\Models\Block;
 use VitesseCms\Communication\Factories\EmailFactory;
 use VitesseCms\Communication\Models\Email;
 use VitesseCms\Content\Controllers\AdminitemController;
+use VitesseCms\Content\Enum\ItemEnum;
 use VitesseCms\Content\Factories\ItemFactory;
 use VitesseCms\Content\Fields\Text;
 use VitesseCms\Content\Fields\TextEditor;
@@ -17,29 +20,34 @@ use VitesseCms\Database\Models\FindValue;
 use VitesseCms\Database\Models\FindValueIterator;
 use VitesseCms\Datafield\Factories\DatafieldFactory;
 use VitesseCms\Datafield\Models\Datafield;
+use VitesseCms\Datagroup\Enums\DatagroupEnum;
 use VitesseCms\Datagroup\Factories\DatagroupFactory;
 use VitesseCms\Datagroup\Models\Datagroup;
+use VitesseCms\Datagroup\Repositories\DatagroupRepository;
 use VitesseCms\Install\Interfaces\AdminRepositoriesInterface;
+use VitesseCms\Search\Repositories\ItemRepository;
 use VitesseCms\Setting\Factory\SettingFactory;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\User\Enum\UserRoleEnum;
 use VitesseCms\User\Factories\PermissionRoleFactory;
 use VitesseCms\User\Models\PermissionRole;
 use VitesseCms\User\Utils\PermissionUtils;
+
 use function count;
 
 abstract class AbstractCreatorController extends AbstractController implements AdminRepositoriesInterface
 {
-    /**
-     * @var array
-     */
-    protected $settingsRepository;
+    private array $settingsRepository;
+    private ItemRepository $itemRepository;
+    private DatagroupRepository $datagroupRepository;
 
     public function onConstruct()
     {
         parent::onConstruct();
 
         $this->settingsRepository = [];
+        $this->itemRepository = $this->eventsManager->fire(ItemEnum::GET_REPOSITORY, new stdClass());
+        $this->datagroupRepository = $this->eventsManager->fire(DatagroupEnum::GET_REPOSITORY->value, new stdClass());
     }
 
     public function initialize()
@@ -98,13 +106,12 @@ abstract class AbstractCreatorController extends AbstractController implements A
     }
 
     protected function createItems(
-        array     $pages,
-        string    $titleField,
+        array $pages,
+        string $titleField,
         Datagroup $datagroup,
-        string    $parentId = null,
-        int       $startOrder = 0
-    ): array
-    {
+        string $parentId = null,
+        int $startOrder = 0
+    ): array {
         $adminitemController = new AdminitemController();
 
         $return = [
@@ -112,7 +119,7 @@ abstract class AbstractCreatorController extends AbstractController implements A
             'ids' => [],
         ];
         foreach ($pages as $title => $params) :
-            $item = $this->repositories->item->findFirst(
+            $item = $this->itemRepository->findFirst(
                 new FindValueIterator([
                     new FindValue($titleField, $title),
                     new FindValue('datagroup', (string)$datagroup->getId()),
@@ -132,7 +139,11 @@ abstract class AbstractCreatorController extends AbstractController implements A
                     $parentId,
                     $startOrder
                 );
-                $this->eventsManager->fire(AdminitemController::class . ':beforeModelSave', $adminitemController, $item);
+                $this->eventsManager->fire(
+                    AdminitemController::class . ':beforeModelSave',
+                    $adminitemController,
+                    $item
+                );
                 $item->save();
             endif;
             $return['pages'][$title] = (string)$item->getId();
@@ -144,11 +155,10 @@ abstract class AbstractCreatorController extends AbstractController implements A
     }
 
     protected function createBlocks(
-        array  $blocks,
+        array $blocks,
         string $titleField,
-        int    $order = 10
-    ): array
-    {
+        int $order = 10
+    ): array {
         $return = [
             'blocks' => [],
             'ids' => [],
@@ -239,11 +249,10 @@ abstract class AbstractCreatorController extends AbstractController implements A
     }
 
     protected function createDatafields(
-        array  $fields,
+        array $fields,
         string $titleField,
-        int    $order = 10
-    ): array
-    {
+        int $order = 10
+    ): array {
         $return = [];
         foreach ($fields as $title => $params) :
             Datafield::setFindValue($titleField, $params['calling_name']);
@@ -287,13 +296,12 @@ abstract class AbstractCreatorController extends AbstractController implements A
         string $titleField,
         string $template,
         string $component,
-        array  $datafields = [],
-        bool   $includeInSitemap = false,
+        array $datafields = [],
+        bool $includeInSitemap = false,
         string $parentId = null,
         string $itemOrdering = ''
-    ): Datagroup
-    {
-        $datagroup = $this->repositories->datagroup->findFirst(
+    ): Datagroup {
+        $datagroup = $this->datagroupRepository->findFirst(
             new FindValueIterator([
                 new FindValue($titleField, $title),
                 new FindValue('component', $component),
@@ -350,10 +358,9 @@ abstract class AbstractCreatorController extends AbstractController implements A
     }
 
     protected function createSystemEmails(
-        array  $emails,
+        array $emails,
         string $subjectField
-    ): array
-    {
+    ): array {
         $return = [
             'emails' => [],
             'ids' => [],
