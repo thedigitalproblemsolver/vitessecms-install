@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace VitesseCms\Install;
 
-use stdClass;
 use VitesseCms\Block\Factories\BlockFactory;
 use VitesseCms\Block\Factories\BlockPositionFactory;
 use VitesseCms\Block\Models\Block;
@@ -15,6 +14,7 @@ use VitesseCms\Content\Enum\ItemEnum;
 use VitesseCms\Content\Factories\ItemFactory;
 use VitesseCms\Content\Fields\Text;
 use VitesseCms\Content\Fields\TextEditor;
+use VitesseCms\Content\Repositories\ItemRepository;
 use VitesseCms\Core\AbstractController;
 use VitesseCms\Database\Models\FindValue;
 use VitesseCms\Database\Models\FindValueIterator;
@@ -25,15 +25,12 @@ use VitesseCms\Datagroup\Factories\DatagroupFactory;
 use VitesseCms\Datagroup\Models\Datagroup;
 use VitesseCms\Datagroup\Repositories\DatagroupRepository;
 use VitesseCms\Install\Interfaces\AdminRepositoriesInterface;
-use VitesseCms\Search\Repositories\ItemRepository;
 use VitesseCms\Setting\Factory\SettingFactory;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\User\Enum\UserRoleEnum;
 use VitesseCms\User\Factories\PermissionRoleFactory;
 use VitesseCms\User\Models\PermissionRole;
 use VitesseCms\User\Utils\PermissionUtils;
-
-use function count;
 
 abstract class AbstractCreatorController extends AbstractController implements AdminRepositoriesInterface
 {
@@ -46,23 +43,23 @@ abstract class AbstractCreatorController extends AbstractController implements A
         parent::onConstruct();
 
         $this->settingsRepository = [];
-        $this->itemRepository = $this->eventsManager->fire(ItemEnum::GET_REPOSITORY, new stdClass());
-        $this->datagroupRepository = $this->eventsManager->fire(DatagroupEnum::GET_REPOSITORY->value, new stdClass());
+        $this->itemRepository = $this->eventsManager->fire(ItemEnum::GET_REPOSITORY, new \stdClass());
+        $this->datagroupRepository = $this->eventsManager->fire(DatagroupEnum::GET_REPOSITORY->value, new \stdClass());
     }
 
     public function initialize()
     {
         if (!PermissionUtils::check(
             $this->user,
-            $this->router->getModulePrefix() . $this->router->getModuleName(),
+            $this->router->getModulePrefix().$this->router->getModuleName(),
             $this->router->getControllerName(),
             $this->router->getActionName()
-        )) :
+        )) {
             $this->flash->setError('USER_NO_ACCESS');
             $this->response->redirect($this->url->getBaseUri());
 
             $this->disableView();
-        endif;
+        }
     }
 
     public function createBasicPermissionRoles(): void
@@ -89,11 +86,11 @@ abstract class AbstractCreatorController extends AbstractController implements A
 
     protected function createPermissionRoles(array $roles): void
     {
-        foreach ($roles as $name => $params) :
+        foreach ($roles as $name => $params) {
             PermissionRole::setFindValue('calling_name', $params['calling_name']);
             PermissionRole::setFindPublished(false);
             $permissionRoles = PermissionRole::findAll();
-            if (count($permissionRoles) === 0) :
+            if (0 === \count($permissionRoles)) {
                 PermissionRoleFactory::create(
                     $name,
                     $params['calling_name'],
@@ -101,8 +98,8 @@ abstract class AbstractCreatorController extends AbstractController implements A
                     isset($params['adminAccess']) ? true : false,
                     isset($params['parentId']) ? $params['parentId'] : null
                 )->save();
-            endif;
-        endforeach;
+            }
+        }
     }
 
     protected function createItems(
@@ -118,38 +115,38 @@ abstract class AbstractCreatorController extends AbstractController implements A
             'pages' => [],
             'ids' => [],
         ];
-        foreach ($pages as $title => $params) :
+        foreach ($pages as $title => $params) {
             $item = $this->itemRepository->findFirst(
                 new FindValueIterator([
                     new FindValue($titleField, $title),
-                    new FindValue('datagroup', (string)$datagroup->getId()),
+                    new FindValue('datagroup', (string) $datagroup->getId()),
                 ]),
                 false
             );
-            if ($item === null) :
+            if (null === $item) {
                 $fieldValues = [];
-                if (is_array($params)) :
+                if (is_array($params)) {
                     $fieldValues = $params;
-                endif;
+                }
                 $item = ItemFactory::create(
                     $title,
-                    (string)$datagroup->getId(),
+                    (string) $datagroup->getId(),
                     $fieldValues,
                     true,
                     $parentId,
                     $startOrder
                 );
                 $this->eventsManager->fire(
-                    AdminitemController::class . ':beforeModelSave',
+                    AdminitemController::class.':beforeModelSave',
                     $adminitemController,
                     $item
                 );
                 $item->save();
-            endif;
-            $return['pages'][$title] = (string)$item->getId();
-            $return['ids'][] = (string)$item->getId();
-            $startOrder++;
-        endforeach;
+            }
+            $return['pages'][$title] = (string) $item->getId();
+            $return['ids'][] = (string) $item->getId();
+            ++$startOrder;
+        }
 
         return $return;
     }
@@ -163,15 +160,15 @@ abstract class AbstractCreatorController extends AbstractController implements A
             'blocks' => [],
             'ids' => [],
         ];
-        foreach ($blocks as $title => $params) :
+        foreach ($blocks as $title => $params) {
             Block::setFindValue($titleField, $title);
             Block::setFindPublished(false);
             $blocks = Block::findAll();
-            if (count($blocks) === 0) :
+            if (0 === \count($blocks)) {
                 $blockSettings = [];
-                if (isset($params['blockSettings'])) :
+                if (isset($params['blockSettings'])) {
                     $blockSettings = $params['blockSettings'];
-                endif;
+                }
 
                 $block = BlockFactory::create(
                     $title,
@@ -183,28 +180,28 @@ abstract class AbstractCreatorController extends AbstractController implements A
                 );
                 $block->save();
 
-                if (isset($params['position']) && isset($params['datagroup'])) :
+                if (isset($params['position']) && isset($params['datagroup'])) {
                     BlockPositionFactory::create(
-                        ucfirst($params['position']) . ' - ' . $block->_('name'),
-                        (string)$block->getId(),
+                        ucfirst($params['position']).' - '.$block->_('name'),
+                        (string) $block->getId(),
                         $params['position'],
                         $params['datagroup'],
                         true,
                         $order
                     )->save();
-                endif;
-            else :
+                }
+            } else {
                 $block = $blocks[0];
-            endif;
-            $return['blocks'][$title] = (string)$block->getId();
-            $return['ids'][] = (string)$block->getId();
-            $order++;
-        endforeach;
+            }
+            $return['blocks'][$title] = (string) $block->getId();
+            $return['ids'][] = (string) $block->getId();
+            ++$order;
+        }
 
         return $return;
     }
 
-    protected function createContentDatagroup(?array $extraFields = null): Datagroup
+    protected function createContentDatagroup(array $extraFields = null): Datagroup
     {
         $fields = [
             'Item naam' => [
@@ -232,15 +229,15 @@ abstract class AbstractCreatorController extends AbstractController implements A
                 ],
             ],
         ];
-        if (is_array($extraFields)) :
+        if (is_array($extraFields)) {
             $fields = array_merge($fields, $extraFields);
-        endif;
+        }
 
         $fieldIds = $this->createDatafields($fields, 'calling_name');
 
         return $this->createDatagroup(
             'Pagina',
-            'name.' . $this->configuration->getLanguageShort(),
+            'name.'.$this->configuration->getLanguageShort(),
             'views/blocks/MainContent/core',
             'content',
             $fieldIds,
@@ -254,15 +251,15 @@ abstract class AbstractCreatorController extends AbstractController implements A
         int $order = 10
     ): array {
         $return = [];
-        foreach ($fields as $title => $params) :
+        foreach ($fields as $title => $params) {
             Datafield::setFindValue($titleField, $params['calling_name']);
             Datafield::setFindPublished(false);
             $datafields = Datafield::findAll();
-            if (count($datafields) === 0) :
+            if (0 === \count($datafields)) {
                 $datafieldSettings = [];
-                if (isset($params['datafieldSettings'])) :
+                if (isset($params['datafieldSettings'])) {
                     $datafieldSettings = $params['datafieldSettings'];
-                endif;
+                }
 
                 $datafield = DatafieldFactory::create(
                     $title,
@@ -273,20 +270,20 @@ abstract class AbstractCreatorController extends AbstractController implements A
                     $order
                 );
                 $datafield->save();
-            else :
+            } else {
                 $datafield = $datafields[0];
-            endif;
+            }
 
             $return[] = [
-                'id' => (string)$datafield->getId(),
+                'id' => (string) $datafield->getId(),
                 'published' => true,
                 'required' => isset($params['required']) ? true : false,
                 'slug' => isset($params['slug']) ? true : false,
                 'slugCategory' => isset($params['slugCategory']) ? true : false,
                 'seoTitle' => isset($params['seoTitle']) ? true : false,
             ];
-            $order++;
-        endforeach;
+            ++$order;
+        }
 
         return $return;
     }
@@ -312,7 +309,7 @@ abstract class AbstractCreatorController extends AbstractController implements A
         $slugDatafields = [];
         $slugCategoryDatafields = [];
         $seoTitleDatafields = [];
-        if ($datagroup === null) :
+        if (null === $datagroup) {
             $datagroup = DatagroupFactory::create(
                 $title,
                 $template,
@@ -323,31 +320,31 @@ abstract class AbstractCreatorController extends AbstractController implements A
                 $parentId,
                 $itemOrdering
             );
-        else :
+        } else {
             $slugDatafields = $datagroup->getSlugDatafields();
             $slugCategoryDatafields = $datagroup->getSlugCategories();
             $seoTitleDatafields = $datagroup->getSeoTitleDatafields();
             $datagroup->set('datafields', $datafields);
-        endif;
+        }
 
         /** @var Datafield $datafield */
-        foreach ($datafields as $datafield) :
-            if (isset($datafield['slug']) && $datafield['slug']) :
-                $slugDatafields[$datafield['id']] = new stdClass();
+        foreach ($datafields as $datafield) {
+            if (isset($datafield['slug']) && $datafield['slug']) {
+                $slugDatafields[$datafield['id']] = new \stdClass();
                 $slugDatafields[$datafield['id']]->id = $datafield['id'];
                 $slugDatafields[$datafield['id']]->published = true;
-            endif;
-            if (isset($datafield['slugCategory']) && $datafield['slugCategory'] && $parentId !== null) :
-                $slugCategoryDatafields[$parentId] = new stdClass();
+            }
+            if (isset($datafield['slugCategory']) && $datafield['slugCategory'] && null !== $parentId) {
+                $slugCategoryDatafields[$parentId] = new \stdClass();
                 $slugCategoryDatafields[$parentId]->id = $datafield['id'];
                 $slugCategoryDatafields[$parentId]->published = true;
-            endif;
-            if (isset($datafield['seoTitle']) && $datafield['seoTitle']) :
-                $seoTitleDatafields[$datafield['id']] = new stdClass();
+            }
+            if (isset($datafield['seoTitle']) && $datafield['seoTitle']) {
+                $seoTitleDatafields[$datafield['id']] = new \stdClass();
                 $seoTitleDatafields[$datafield['id']]->id = $datafield['id'];
                 $seoTitleDatafields[$datafield['id']]->published = true;
-            endif;
-        endforeach;
+            }
+        }
 
         $datagroup->setSlugDatafields($slugDatafields);
         $datagroup->setSlugCategories($slugCategoryDatafields);
@@ -365,11 +362,11 @@ abstract class AbstractCreatorController extends AbstractController implements A
             'emails' => [],
             'ids' => [],
         ];
-        foreach ($emails as $subject => $params) :
+        foreach ($emails as $subject => $params) {
             Email::setFindValue($subjectField, $subject);
             Email::setFindPublished(false);
             $emails = Email::findAll();
-            if (count($emails) === 0) :
+            if (0 === \count($emails)) {
                 $email = EmailFactory::create(
                     $subject,
                     $params['body'],
@@ -381,12 +378,12 @@ abstract class AbstractCreatorController extends AbstractController implements A
                     isset($params['messageError']) ? $params['messageError'] : null
                 );
                 $email->save();
-            else :
+            } else {
                 $email = $emails[0];
-            endif;
-            $return['emails'][$subject] = (string)$email->getId();
-            $return['ids'][] = (string)$email->getId();
-        endforeach;
+            }
+            $return['emails'][$subject] = (string) $email->getId();
+            $return['ids'][] = (string) $email->getId();
+        }
 
         $this->createSettings([
             'WEBSITE_CONTACT_EMAIL' => ['value' => ''],
@@ -398,11 +395,11 @@ abstract class AbstractCreatorController extends AbstractController implements A
 
     protected function createSettings(array $settings): void
     {
-        foreach ($settings as $settingKey => $params) :
+        foreach ($settings as $settingKey => $params) {
             Setting::setFindValue('calling_name', $settingKey);
             Setting::setFindPublished(false);
             $settingItems = Setting::findAll();
-            if (count($settingItems) === 0) :
+            if (0 === \count($settingItems)) {
                 $setting = SettingFactory::create(
                     $settingKey,
                     isset($params['type']) ? $params['type'] : 'SettingText',
@@ -411,7 +408,7 @@ abstract class AbstractCreatorController extends AbstractController implements A
                     true
                 );
                 $setting->save();
-            endif;
-        endforeach;
+            }
+        }
     }
 }
